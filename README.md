@@ -2,7 +2,7 @@
 Bài tập cá nhân
 Trần An Thiên - 23110333
 
-Thuật toán BFS
+        Thuật toán BFS
 ![BFS](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/BFS.gif)
 
 Thuật toán DFS
