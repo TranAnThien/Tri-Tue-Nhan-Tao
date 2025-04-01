@@ -23,8 +23,8 @@ Trần An Thiên - 23110333
         Thuật toán IDA*
 ![IDA_Star](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/IDA_Star.gif)
 
-Thuật toán Simple Hill Climbing
+        Thuật toán Simple Hill Climbing
 ![SimpleHillClimbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/SimpleHillClimbing.gif)
 
-Thuật toán Hill Climbing
+        Thuật toán Hill Climbing
 ![HillClimbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/HillClimbing.gif)
