@@ -1,4 +1,4 @@
-## 📁 Danh sách thuật toán
+## 📁 Danh sách thuật toán tìm kiếm
 
 ### 🧠 1. Uninformed Search Algorithms (Tìm kiếm không có thông tin)
 
@@ -64,11 +64,27 @@
 
 ---
 
+#### 🔸 Simple Hill Climbing
+- Ở mỗi bước, duyệt các trạng thái kề cận và chọn trạng thái đầu tiên có heuristic tốt hơn hiện .
+- Đơn giản, nhanh, nhưng dễ kẹt tại điểm cực trị địa phương vì không kiểm tra hết tất cả lựa chọn.
+
+![Simple Hill Climbing GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimpleHillClimbing.gif)
+
+---
+
 #### 🔸 Hill Climbing
 - Luôn đi đến trạng thái có heuristic tốt hơn.
 - Có thể bị kẹt tại điểm cực trị địa phương.
 
 ![Hill Climbing GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/HillClimbing.gif)
+
+---
+
+#### 🔸 Stochastic Hill Climbing
+- Biến thể của Hill Climbing, chọn ngẫu nhiên trong các nước đi tốt hơn.
+- Hạn chế kẹt tại cực trị địa phương hiệu quả hơn.
+
+![Stochastic Hill Climbing GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/StochasticHillClimbing.gif)
 
 ---
 
@@ -85,5 +101,17 @@
 - Giảm chi phí bộ nhớ nhưng không đảm bảo tối ưu.
 
 ![Beam Search GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BeamSearch.gif)
+
+---
+
+### 🧬 3. Genetic Algorithm (Thuật toán di truyền)
+
+> Mô phỏng quá trình tiến hóa tự nhiên với các thao tác lai ghép, đột biến, và chọn lọc.
+
+#### 🔸 Genetic Algorithm
+- Dùng quần thể, chọn lọc cá thể tốt, sinh ra thế hệ mới.
+- Phù hợp khi không gian tìm kiếm rộng, khó định hướng.
+
+![Genetic Algorithm GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Genetic.gif)
 
 ---
