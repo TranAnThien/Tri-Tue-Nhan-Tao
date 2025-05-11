@@ -25,27 +25,42 @@
 
 ---
 
-### 💡 2. Informed Search Algorithms (Tìm kiếm có thông tin)
+### 💡 2.2. Informed Search Algorithms (Tìm kiếm có thông tin)
 
-> Sử dụng **hàm heuristic** để ước lượng khoảng cách đến mục tiêu, giúp tìm kiếm nhanh hơn.
+> Các thành phần chính của bài toán
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+  * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
+  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
+  * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
+  * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
+> Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 | Thuật toán | GIF minh họa |
 |------------|--------------|
-| 🔸 **Greedy Best-First Search**<br> - Luôn mở rộng nút gần đích nhất theo heuristic.<br> - Không đảm bảo tối ưu. | ![Greedy](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Greedy.gif) |
-| 🔸 **A\*** (A-star)<br> - Dựa trên tổng chi phí đã đi + ước lượng chi phí còn lại (`f(n) = g(n) + h(n)`).<br> - Tối ưu và hoàn chỉnh nếu heuristic hợp lý. | ![A\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/A_Star.gif) |
-| 🔸 **IDA\*** (Iterative Deepening A\*)<br> - Phiên bản tiết kiệm bộ nhớ của A\*.<br> - Lặp lại A\* theo ngưỡng `f`. | ![IDA\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDA_Star.gif) |
-| 🔸 **Simple Hill Climbing**<br> - Ở mỗi bước, duyệt các trạng thái kề cận và chọn trạng thái đầu tiên có heuristic tốt hơn hiện tại.<br> - Đơn giản, nhanh, nhưng dễ kẹt tại điểm cực trị địa phương vì không kiểm tra hết tất cả lựa chọn. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimpleHillClimbing.gif) |
-| 🔸 **Hill Climbing**<br> - Luôn đi đến trạng thái có heuristic tốt hơn.<br> - Có thể bị kẹt tại điểm cực trị địa phương. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/HillClimbing.gif) |
-| 🔸 **Stochastic Hill Climbing**<br> - Biến thể của Hill Climbing, chọn ngẫu nhiên trong các nước đi tốt hơn.<br> - Hạn chế kẹt tại cực trị địa phương hiệu quả hơn. | ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/StochasticHillClimbing.gif) |
-| 🔸 **Simulated Annealing**<br> - Giống hill climbing nhưng có khả năng "nhảy xuống" để thoát cực trị địa phương.<br> - Dựa trên nhiệt độ giảm dần. | ![Simulated Annealing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimulatedAnnealing.gif) |
-| 🔸 **Beam Search**<br> - Mỗi bước chỉ giữ `k` trạng thái tốt nhất.<br> - Giảm chi phí bộ nhớ nhưng không đảm bảo tối ưu. | ![Beam Search](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BeamSearch.gif) |
+| 🔸 **Greedy Best-First Search**<br> - Sử dụng hàng đợi ưu tiên (Priority Queue).<br> - Chọn trạng thái có giá trị manhattan nhỏ nhất (được xem là trạng thái gần đích nhất). | ![Greedy](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Greedy.gif) |
+| 🔸 **A\*** (A-star)<br> - Sử dụng hàng đợi ưu tiên (Priority Queue) để lưu trữ các trạng thái.<br> - Chọn trạng trái có giá trị f(n) nhỏ nhất với công thức (`f(n) = g(n) + h(n)`), trong đó h(n) là giá trị manhattan và g(n) là chi phí đường đi.| ![A\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/A_Star.gif) |
+| 🔸 **IDA\*** (Iterative Deepening A\*)<br> - Phiên bản tiết kiệm bộ nhớ của A\*.<br> - Hoạt động dựa trên một ngưỡng của giá trị f(n) cho mỗi lượt tìm kiếm theo chiều sâu, ngưỡng này tăng dần qua mỗi lần lặp. | ![IDA\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDA_Star.gif) |
 
 ---
 
-### 🧬 3. Genetic Algorithm (Thuật toán di truyền)
+### 🧬 3. Local Search (Tìm kiếm cục bộ)
 
-> Mô phỏng quá trình tiến hóa tự nhiên với các thao tác lai ghép, đột biến, và chọn lọc.
+> Các thành phần chính của bài toán
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+  * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
+  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
+  * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
+> Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 | Thuật toán | GIF minh họa |
 |------------|--------------|
-| 🔸 **Genetic Algorithm**<br> - Dùng quần thể, chọn lọc cá thể tốt, sinh ra thế hệ mới.<br> - Phù hợp khi không gian tìm kiếm rộng, khó định hướng. | ![Genetic Algorithm](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Genetic.gif) |
+| 🔸 **Simple Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn trạng thái hiện tại để di chuyển. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimpleHillClimbing.gif) |
+| 🔸 **Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận và chọn trạng thái lân cận tốt nhất để di chuyển. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/HillClimbing.gif) |
+| 🔸 **Stochastic Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận để tìm các trạng thái tốt hơn trạng thái hiện tại, sau đó chọn ngẫu nhiên 1 trong các trạng thái đó để di chuyển. | ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/StochasticHillClimbing.gif) |
+| 🔸 **Simulated Annealing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận tốt hơn hay xấu hơn trạng thái hiện tại, có thêm 1 giá trị nhiệt độ giảm dần sau mỗi bước, 1 giá trị xác suất được tính khi trạng thái lân cận xấu hơn được xem xét.<br> - Duyệt qua các trạng thái lân cận, nếu trạng thái đó tốt hơn trạng thái hiện tại thì sẽ chọn trang thái đó để di chuyển, nếu trạng thái đó xấu hơn thì sẽ tính xác suất xem có dùng trạng thái đó để di chuyển hay không. | ![Simulated Annealing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimulatedAnnealing.gif) |
+| 🔸 **Beam Search**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duy trì song song k trạng thái thay vì chỉ một trạng thái.<br> - Tại mỗi bước, nó sẽ tạo ra tất cả các trạng thái lân cận từ k trạng thái, sau đó chọn ra k trạng thái tốt nhất để thực hiện cho bước tiếp theo. | ![Beam Search](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BeamSearch.gif) |
+| 🔸 **Genetic Algorithm**<br> - Dùng quần thể, chọn lọc cá thể tốt, sinh ra thế hệ mới.<br> - Cách chọn đường đi:<br>  + Khởi tạo quần thể.<br>  + Đánh giá độ thích nghi.<br>  + Lựa chọn cá thể.<br>  + Lai ghép.<br>  + Đột biến.<br>  + Sinh ra cá thể mới. | ![Genetic Algorithm](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Genetic.gif) |
+
+---
