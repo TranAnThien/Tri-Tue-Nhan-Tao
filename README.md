@@ -1,15 +1,27 @@
-## 📁 Danh sách thuật toán tìm kiếm
+## 📁 Bài tập cá nhân: Giải Bài Toán 8-Puzzle với Các Nhóm Thuật Toán Tìm Kiếm
 
+## 1. Mục tiêu
+  * Nghiên cứu và cài đặt thuật toán tìm kiếm trong 6 nhóm thuật toán được học trên lớp vào bài toán 8 puzzle: Tiến hành nghiên cứu về lý thuyết và cơ chế hoạt động của 6 nhóm thuật toán, áp dụng các thuật toán này vào bài toán 8 puzzle nhằm kiểm tra tính đúng đắn và khả năng ứng dụng vào thực tế của các thuật toán.
+  * Phân tích và so sánh hiệu quả (thời gian thực thi, số bước) của các thuật toán: Thực hiện chạy thử một số trường hợp trên bài toán 8 puzzle, thu thập dữ liệu hiệu suất để đánh giá từng thuật toán dựa trên thời gian tìm thấy đường đi, số bước di chuyển, chi phí đường đi, thời gian thực thi.
+  * Hiểu rõ được bản chất, ưu điểm và nhược điểm của từng thuật toán.
+## 2. Nội dung
+> Trình bày về khái niệm, các thành phần chính và giải pháp của từng nhóm thuật toán và việc áp dụng, đánh giá 6 nhóm thuật toán đã học vào bài toán 8 puzzle.
 ### 🧠 1. Uninformed Search Algorithms (Tìm kiếm không có thông tin)
 
-> Các thuật toán này **không sử dụng bất kỳ kiến thức nào về đích**, chỉ dựa trên cấu trúc không gian trạng thái.
+> Các thành phần chính của bài toán
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+  * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
+  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
+  * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
+> Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 | Thuật toán | GIF minh họa |
 |------------|--------------|
-| 🔸 **Breadth-First Search (BFS)**  <br> - Tìm kiếm theo từng lớp.<br> - Đảm bảo tìm được đường đi ngắn nhất (nếu chi phí các bước bằng nhau). | ![BFS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BFS.gif) |
-| 🔸 **Depth-First Search (DFS)**<br> - Tìm theo chiều sâu đến khi đạt đích hoặc không còn gì để duyệt.<br> - Có thể bị kẹt trong vòng lặp nếu không kiểm soát tốt. | ![DFS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/DFS.gif) |
-| 🔸 **Uniform Cost Search (UCS)**<br> - Mở rộng nút có chi phí thấp nhất trước.<br> - Đảm bảo tìm ra đường đi ngắn nhất (nếu có chi phí từng bước khác nhau). | ![UCS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/UCS.gif) |
-| 🔸 **Iterative Deepening Search (IDS)**<br> - Kết hợp ưu điểm của DFS và BFS.<br> - Tìm theo chiều sâu tăng dần. | ![IDS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDS.gif) |
+| 🔸 **Breadth-First Search (BFS)**  <br> - Sử dụng cấu trúc hàng đợi (queue).<br> - Duyết tất cả các trạng thái ở cùng một độ sâu trước khi chuyển sang các trạng thái ở độ sâu tiếp theo. | ![BFS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BFS.gif) |
+| 🔸 **Depth-First Search (DFS)**<br> - Sử dụng cấu trúc ngăn xếp (Stack).<br> - Duyệt sâu xuống một nhánh hết sức có thể trước khi quay lui để thử các nhánh khác. | ![DFS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/DFS.gif) |
+| 🔸 **Uniform Cost Search (UCS)**<br> - Sử dụng hàng đợi ưu tiên (Prority Queue).<br> - Mở rộng các trạng thái chưa đuyệt có chi phí đường đi nhỏ nhất. | ![UCS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/UCS.gif) |
+| 🔸 **Iterative Deepening Search (IDS)**<br> - Là một biến thể của thuật toán DFS.<br> - Có thể một giới hạn về độ sâu tối đa mà thuật toán được phép duyệt. | ![IDS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDS.gif) |
 
 ---
 
