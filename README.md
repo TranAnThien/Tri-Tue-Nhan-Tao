@@ -38,9 +38,9 @@
 
 | Thuật toán |   GIF minh họa   |
 |------------|------------------|
-| 🔸 **Greedy Best-First Search**<br> | ![Greedy](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Greedy.gif) |
-| 🔸 **A\*** (A-star)<br> | ![A\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/A_Star.gif) |
-| 🔸 **IDA\*** (Iterative Deepening A\*)<br> | ![IDA\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDA_Star.gif) |
+| 🔸 **Greedy Best-First Search**<br> - Sử dụng hàng đợi ưu tiên (Priority Queue).<br> - Chọn trạng thái có giá trị manhattan nhỏ nhất (được xem là trạng thái gần đích nhất).| ![Greedy](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Greedy.gif) |
+| 🔸 **A\*** (A-star)<br> - Sử dụng hàng đợi ưu tiên (Priority Queue) để lưu trữ các trạng thái.<br> - Chọn trạng trái có giá trị f(n) nhỏ nhất với công thức (`f(n) = g(n) + h(n)`).<br> Trong đó:<br> +h(n): giá trị manhattan.<br> + g(n): chi phí đường đi. | ![A\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/A_Star.gif) |
+| 🔸 **IDA\*** (Iterative Deepening A\*)<br> - Phiên bản tiết kiệm bộ nhớ của A\*.<br> - Hoạt động dựa trên một ngưỡng của giá trị f(n) cho mỗi lượt tìm kiếm theo chiều sâu, ngưỡng này tăng dần qua mỗi lần lặp.  | ![IDA\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDA_Star.gif) |
 
 ---
 
