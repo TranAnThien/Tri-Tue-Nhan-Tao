@@ -52,6 +52,7 @@
   * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
   * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
   * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
+  * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 | Thuật toán | GIF minh họa |
