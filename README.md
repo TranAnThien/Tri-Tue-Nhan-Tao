@@ -55,8 +55,8 @@
   * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
-| Thuật toán | GIF minh họa |
-|------------|--------------|
+| Thuật toán |   GIF minh họa   |
+|------------|------------------|
 | 🔸 **Simple Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn trạng thái hiện tại để di chuyển. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimpleHillClimbing.gif) |
 | 🔸 **Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận và chọn trạng thái lân cận tốt nhất để di chuyển. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/HillClimbing.gif) |
 | 🔸 **Stochastic Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận để tìm các trạng thái tốt hơn trạng thái hiện tại, sau đó chọn ngẫu nhiên 1 trong các trạng thái đó để di chuyển. | ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/StochasticHillClimbing.gif) |
