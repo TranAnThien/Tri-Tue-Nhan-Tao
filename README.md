@@ -26,6 +26,12 @@
 > Hình ảnh so sánh hiệu suất các thuật toán
 ![Screenshot 2025-05-12 170153](https://github.com/user-attachments/assets/a0991968-e8c0-4ee6-a344-2fdbf146070b)
 
+> Một số nhận xét khi áp dụng vào bài toán 8 puzzle
+  * BFS: Tìm thấy được đường đi ngắn nhất, nhưng khá chậm, rất tốn bộ nhớ.
+  * DFS: Đường đi tì thấy được có thể không phải là đường đi ngắn nhất. Khi chạy thuật toán, số nút được xét rất lớn và kết quả trả về thường là một đường đi dài, tốn ít bộ nhớ.
+  * UCS: Tối ưu về chi phí đường đi, nếu tất cả đường đi có chi phí là 1 (đang áp dụng vào bài toán) thì nó cũng sẽ trả về đường đi ngắn nhất giống thuật toán BFS.
+  * IDS: Kết hợp ưu điểm của BFS và DFS.
+
 ---
 
 ### 💡 2.2. Informed Search Algorithms (Tìm kiếm có thông tin)
@@ -48,6 +54,11 @@
 > Hình ảnh so sánh hiệu suất các thuật toán
 ![Screenshot 2025-05-12 170153](https://github.com/user-attachments/assets/c56d606a-8dd3-4e09-a26f-b426d3e4e4c1)
 
+> Một số nhận xét khi áp dụng vào bài toán 8 puzzle
+  * Greedy: Nhanh chóng tìm ra đường đi nếu có giá trị manhattan tốt nhưng đường đi thường không phải ngắn nhất.
+  * A*: Hiệu quả cao khi áp dụng vào bài toán 8 puzzle, thời gian tìm thấy lời giải nhanh.
+  * IDA*: Kết hợp tính tối ưu của A* và hiệu quả bộ nhớ của IDS. 
+    
 ---
 
 ### 🧬 2.3. Local Search (Tìm kiếm cục bộ)
@@ -72,6 +83,10 @@
 
 > Hình ảnh so sánh hiệu suất các thuật toán
 ![Screenshot 2025-05-12 170410](https://github.com/user-attachments/assets/80c6bcee-ec50-4ca5-aebd-4cb5dcc94a5e)
+
+> Một số nhận xét khi áp dụng vào bài toán 8 puzzle
+  * Hill Climbing và các biến thể (Simple Hill Climbing, Stochastic): Ít tốn bộ nhớ vì chỉ xét trạng thái hiện tại nhưng dễ bị mắc kẹt trước khi đến được trạng thái đích.
+  * Simulated Anealing: Có khả năng không bị mắc kẹt vì nó cho phép đi đến các trạng thái xấu hơn.
 
 ---
 
