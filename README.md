@@ -6,7 +6,7 @@
   * Hiểu rõ được bản chất, ưu điểm và nhược điểm của từng thuật toán.
 ## 2. Nội dung
 > Trình bày về khái niệm, các thành phần chính và giải pháp của từng nhóm thuật toán và việc áp dụng, đánh giá 6 nhóm thuật toán đã học vào bài toán 8 puzzle.
-### 🧠 1. Uninformed Search Algorithms (Tìm kiếm không có thông tin)
+### 🧠 2.1. Uninformed Search Algorithms (Tìm kiếm không có thông tin)
 
 > Các thành phần chính của bài toán
   * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
@@ -44,7 +44,7 @@
 
 ---
 
-### 🧬 3. Local Search (Tìm kiếm cục bộ)
+### 🧬 2.3. Local Search (Tìm kiếm cục bộ)
 
 > Các thành phần chính của bài toán
   * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
@@ -63,5 +63,53 @@
 | 🔸 **Simulated Annealing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận tốt hơn hay xấu hơn trạng thái hiện tại.<br> - Có thêm 1 giá trị nhiệt độ giảm dần sau mỗi bước, 1 giá trị xác suất được tính khi trạng thái lân cận xấu hơn được xem xét.<br> - Duyệt qua các trạng thái lân cận:<br> + Nếu trạng thái đó tốt hơn trạng thái hiện tại thì sẽ chọn trang thái đó để di chuyển.<br> + Nếu trạng thái đó xấu hơn thì sẽ tính xác suất xem có dùng trạng thái đó để di chuyển hay không. | ![Simulated Annealing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimulatedAnnealing.gif) |
 | 🔸 **Beam Search**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duy trì song song k trạng thái thay vì chỉ một trạng thái.<br> - Tại mỗi bước, nó sẽ tạo ra tất cả các trạng thái lân cận từ k trạng thái, sau đó chọn ra k trạng thái tốt nhất cho bước tiếp theo. | ![Beam Search](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BeamSearch.gif) |
 | 🔸 **Genetic Algorithm**<br> - Dùng quần thể, chọn lọc cá thể tốt, sinh ra thế hệ mới.<br> - Cách chọn đường đi:<br>  + Khởi tạo quần thể.<br>  + Đánh giá độ thích nghi.<br>  + Lựa chọn cá thể.<br>  + Lai ghép.<br>  + Đột biến.<br>  + Sinh ra cá thể mới. | ![Genetic Algorithm](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Genetic.gif) |
+
+---
+
+### 🌌 2.4. Online Search Algorithms (Tìm kiếm trong môi trường phức tạp)
+
+> Các thành phần chính của bài toán
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
+      - Đối với thuật toán AND-OR: Trạng thái xuất phát đã có sẵn dữ liệu.
+      - Đối với thuật toán No Observation và Partial Observation: Trạng thái đầu sẽ là tập hợp một hoặc nhiều trạng thái ngẫu nhiên.
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+      - Đối với thuật toán AND-OR: Trạng thái đích đã có sẵn dữ liệu.
+      - Đối với thuật toán No Observation: Trạng thái đích sẽ là tập hợp một hoặc nhiều trạng thái ngẫu nhiên.
+      - Đối với thuật toán Partial Observation: Trạng thái đích sẽ là tập hợp một hoặc nhiều trạng thái được tạo ngẫu nhiên dựa trên một phần nhìn thấy được của trạng thái đích.
+  * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
+  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
+  * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
+  * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
+> Giải pháp: Chuỗi các hành động có điều kiện dẫn từ trạng thái đầu đến trạng thái đích (AND-OR) hoặc là đường đi trong không gian trạng thái niềm tin.
+
+| Thuật toán |   GIF minh họa   |
+|------------|------------------|
+| 🔸 **AND-OR**<br> - Phân rã bài toán thành những vấn đề con.<br> - Nút AND: Đại diện cho một vấn đề mà tất cả các vấn đề con của nó phải được giải quyết.<br> - Đại diện cho một vấn đề mà chỉ cần chọn một trong những vấn đề con của nó để giải quyết. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimpleHillClimbing.gif) |
+| 🔸 **No Observation**<br> - Tìm kiếm trạng thái đích chung từ những trạng thái đầu ngẫu nhiên.<br> - Giải thử tất cả các trạng thái đầu bằng một thuật toán tìm kiếm (BFS, DFS, A*, ...).<br> - Nếu tìm thấy đích chung mà tất cả trạng thái đầu đều đi tới thì kết quả là tập hợp tất cả đường đi đó. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/HillClimbing.gif) |
+| 🔸 **Partial Observation**<br> - Tương tự như thuật toasnNo Observation.<br> - Vì nhìn thấy được một phần của trạng thái đích nên những trạng thái đích được tạo ngẫu nhiên sẽ giống với trạng thái đích mong muốn hơn so với không nhìn thấy gì. | ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/StochasticHillClimbing.gif) |
+
+---
+
+### 🧩 2.5. Constraint Satisfaction Problems (CSPs) (Tìm kiếm trong môi trường có ràng buộc)
+
+> Các thành phần chính của bài toán
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+  * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
+  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
+  * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
+  * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
+  * Biến đại diện cho các thành phần của bài toán (vị trí của ô).
+  * Miền giá trị: Tập giá trị mà biến có thể nhận được.
+  * Ràng buộc: Những quy tắc áp dụng vào bài toán để thu hẹp miền giá trị của các biến.
+> Giải pháp:
+  * Chuỗi các hành động từ trạng thái đầu đến trạng thái đích.
+  * Thu hẹp miền giá trị của các biến để tạo ra trạng thái cuối cùng thỏa mãn các ràng buộc.
+
+| Thuật toán |   GIF minh họa   |
+|------------|------------------|
+| 🔸 **Generate and Test**<br> - Tạo ra một trạng thái mới ngẫu nhiên và kiêm tra xem trạng thái đó có đường đi đến trạng thái đích hay không.<br>  + Nếu đi được đến đích thì sẽ trả về tập các đường đi.<br>  + Nếu không thì sẽ tạo lại một trạng thái mới khác và tiếp tục kiểm tra cho đến khi có trạng thái có đường đi đến trạng thái đích. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimpleHillClimbing.gif) |
+| 🔸 **Backtracking**<br> - Tương tự như thuật toán DFS, thuật toán này sẽ đi sâu xuống hết mức có thể của một nhánh:<br>  + Nếu tìm thấy đường đi thì trả về tập các hành động.<br>  + Nếu không thì sẽ quay lui lại trạng thái trước đó, đồng thời hoàn tác việc đánh dấu đã thăm. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/HillClimbing.gif) |
+| 🔸 **AC-3**<br> - Tạo ra những ràng buộc áp đặt vào bài toắn hoặc sử dụng những ràng buộc có sẵn.<br> - Khởi tạo miền giá trị cho từng biến và một tập các cung dùng để kiểm tra các ràng buộc và thu hẹp miền giá trị của các biến.<br> - Duyệt qua từng cung, xét từng giá trị nằm trong miền giá trị của biến thứ nhất trong cung:<br>  + Nếu trong miền giá trị của biến thứ hai có ít nhất một giá trị thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ không đổi.<br>  + Nếu không có giá trị nào trong miền giá trị của biến thứ hai thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ xóa giá trị đang xét.<br>  + Nếu có sự thu hẹp miền giá trị xảy ra thì các cung liền kề với biến thứ nhất sẽ được thêm lại vào hàng đợi các cung. | ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/StochasticHillClimbing.gif) |
 
 ---
