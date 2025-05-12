@@ -1,8 +1,31 @@
 import queue
 import random
 import math
+from collections import deque
 
 MOVES = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+def count_inversions(state):
+    flat_list = []
+    for row in state:
+        for tile in row:
+            if tile != 0:
+                flat_list.append(tile)
+
+    inversion_count = 0
+    list_len = len(flat_list)
+    for i in range(list_len):
+        for j in range(i + 1, list_len):
+            if flat_list[i] > flat_list[j]:
+                inversion_count += 1
+
+    return inversion_count
+
+def is_solvable(start_state, goal_state):
+    start_inversions = count_inversions(start_state)
+    goal_inversions = count_inversions(goal_state)
+
+    return (start_inversions % 2) == (goal_inversions % 2)
 
 def find_blank(state):
     for i in range(3):
@@ -24,77 +47,95 @@ def generate_new_states(state):
     return new_states
 
 def bfs_solve(start, goal):
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
     q = queue.Queue()
-    q.put((start, []))
+    q.put((start, [start]))
     visited = set()
     visited.add(start)
 
     while not q.empty():
         current, path = q.get()
+        node_count += 1
         if current == goal:
-            return path
+            return path, node_count
 
         for new_state in generate_new_states(current):
             if new_state not in visited:
                 visited.add(new_state)
                 q.put((new_state, path + [new_state]))
 
-    return None
+    return None, node_count
 
 def dfs_solve(start, goal):
-    stack = [(start, [])]
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
+    stack = [(start, [start])]
     visited = set()
     visited.add(start)
 
     while stack:
         current, path = stack.pop()
+        node_count += 1
         if current == goal:
-            return path
+            return path, node_count
 
         for new_state in generate_new_states(current):
             if new_state not in visited:
                 visited.add(new_state)
                 stack.append((new_state, path + [new_state]))
 
-    return None
+    return None, node_count
 
 def ucs_solve(start, goal):
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
     pq = queue.PriorityQueue()
-    pq.put((0, start, []))
+    pq.put((0, start, [start]))
     visited = set()
     visited.add(start)
 
     while not pq.empty():
         cost, current, path = pq.get()
+        node_count += 1
         if current == goal:
-            return path
+            return path, node_count
 
         for new_state in generate_new_states(current):
             if new_state not in visited:
                 visited.add(new_state)
                 pq.put((cost + 1, new_state, path + [new_state]))
 
-    return None
+    return None, node_count
 
 def ids_solve(start, goal):
+    total_node = 0
+    if not is_solvable(start, goal):
+        return None, total_node
     depth = 0
     while True:
-        result = depth_limited_search(start, goal, depth)
+        result, node_count = depth_limited_search(start, goal, depth)
+        total_node += node_count
         if result is not None:
-            return result
+            return result, total_node
         depth += 1
 
 def depth_limited_search(start, goal, max_depth):
     q = queue.Queue()
-    q.put((start, [], 0))
+    q.put((start, [start], 0))
 
     visited = set()
+    node_count = 0
 
     while not q.empty():
         current, path, depth = q.get()
+        node_count += 1
 
         if current == goal:
-            return path
+            return path, node_count
 
         if depth < max_depth:
             for new_state in generate_new_states(current):
@@ -102,7 +143,7 @@ def depth_limited_search(start, goal, max_depth):
                     visited.add(new_state)
                     q.put((new_state, path + [new_state], depth + 1))
 
-    return None
+    return None, node_count
 
 
 def manhattan(state, goal):
@@ -122,15 +163,19 @@ def manhattan(state, goal):
 
 
 def greedy_solve(start, goal):
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
     pq = queue.PriorityQueue()
-    pq.put((manhattan(start, goal), start, []))
+    pq.put((manhattan(start, goal), start, [start]))
     visited = set()
 
     while not pq.empty():
         h, current, path = pq.get()
+        node_count += 1
 
         if current == goal:
-            return path
+            return path, node_count
 
         if current in visited:
             continue
@@ -140,18 +185,22 @@ def greedy_solve(start, goal):
             if new_state not in visited:
                 pq.put((manhattan(new_state, goal), new_state, path + [new_state]))
 
-    return None
+    return None, node_count
 
 def a_star_solve(start, goal):
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
     pq = queue.PriorityQueue()
-    pq.put((manhattan(start, goal), 0, start, []))
+    pq.put((manhattan(start, goal), 0, start, [start]))
     visited = {}
 
     while not pq.empty():
         f, g, current, path = pq.get()
+        node_count += 1
 
         if current == goal:
-            return path
+            return path, node_count
 
         if current in visited and visited[current] <= g:
             continue
@@ -163,19 +212,24 @@ def a_star_solve(start, goal):
             new_f = new_g + manhattan(new_state, goal)
             pq.put((new_f, new_g, new_state, path + [new_state]))
 
-    return None
+    return None, node_count
 
 def ida_star_solve(start, goal):
+    total_node = 0
+    if not is_solvable(start, goal):
+        return None, total_node
     threshold = manhattan(start, goal)
     
     while True:
         q = queue.Queue()
-        q.put((start, [], 0))
+        q.put((start, [start], 0))
         visited = set()
         min_threshold = float('inf')
+        node_count = 0
 
         while not q.empty():
             current, path, g = q.get()
+            node_count += 1
             f = g + manhattan(current, goal)
 
             if f > threshold:
@@ -183,7 +237,7 @@ def ida_star_solve(start, goal):
                 continue
 
             if current == goal:
-                return path
+                return path, total_node
 
             visited.add(current)
 
@@ -191,26 +245,31 @@ def ida_star_solve(start, goal):
                 if new_state not in visited:
                     q.put((new_state, path + [new_state], g + 1))
 
+        total_node += node_count
         if min_threshold == float('inf'):
-            return None
+            return None, total_node
 
         threshold = min_threshold
 
 def simple_hill_climbing_solve(start, goal):
-    q = queue.Queue()
-    q.put((start, [start])) 
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
 
-    while not q.empty():
-        current, path = q.get()
+    current = start
+    path = [current]
+    visited = set()
+    visited.add(current)
 
-        if current == goal:
-            return path
-
+    while current != goal:
+        node_count += 1
         current_manhattan = manhattan(current, goal)
         best_state = None
         best_manhattan = current_manhattan
 
         for new_state in generate_new_states(current):
+            if new_state in visited:
+                continue
             h = manhattan(new_state, goal)
             if h < best_manhattan:
                 best_manhattan = h
@@ -218,83 +277,88 @@ def simple_hill_climbing_solve(start, goal):
                 break
 
         if best_state:
-            q.put((best_state, path + [best_state]))
+            visited.add(best_state)
+            current = best_state
+            path.append(current)
         else:
-            return None
-
-    return None
+            return None, node_count
+    return path, node_count
 
 def hill_climbing_solve(start, goal):
-    q = queue.Queue()
-    q.put((start, [start])) 
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
 
-    while not q.empty():
-        current, path = q.get()
+    current = start
+    path = [current]
+    visited = set()
+    visited.add(current)
 
-        if current == goal:
-            return path
-
+    while current != goal:
+        node_count += 1
         current_manhattan = manhattan(current, goal)
         best_state = None
         best_manhattan = current_manhattan
 
         for new_state in generate_new_states(current):
+            if new_state in visited:
+                continue
             h = manhattan(new_state, goal)
             if h < best_manhattan:
                 best_manhattan = h
                 best_state = new_state
 
         if best_state:
-            q.put((best_state, path + [best_state]))
+            visited.add(best_state)
+            current = best_state
+            path.append(current)
         else:
-            return None
-
-    return None
+            return None, node_count
+    return path, node_count
 
 def Stochastic_hill_climbing_solve(start, goal):
-    q = queue.Queue()
-    q.put((start, [start])) 
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
+    
+    current = start
+    path = [current]
+    visited = set()
+    visited.add(current)
 
-    while not q.empty():
-        current, path = q.get()
-
-        if current == goal:
-            return path
-
+    while current != goal:
+        node_count += 1
         current_manhattan = manhattan(current, goal)
         best_state = None
         best_manhattan = current_manhattan
 
-        neighbors = generate_new_states(current)
-        for i in range(len(neighbors)):
-            new_state = random.choice(neighbors)
+        list_better_states = []
+        for new_state in generate_new_states(current):
             h = manhattan(new_state, goal)
             if h < best_manhattan:
-                best_manhattan = h
-                best_state = new_state
-                break
-            else:
-                neighbors.remove(new_state)
+                list_better_states.append(new_state)
 
-        if best_state:
-            q.put((best_state, path + [best_state]))
+        if list_better_states:
+            best_state = random.choice(list_better_states)
+            visited.add(best_state)
+            current = best_state
+            path.append(current)
         else:
-            return None
+            return None, node_count
 
-    return None
+    return path, node_count
 
 def Simulated_Annealing_solve(start, goal):
-    q = queue.Queue()
-    q.put((start, [start])) 
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
+    current = start
+    path = [current]
     T = pow(10, 4)
     alpha = 0.99
 
-    while not q.empty():
-        current, path = q.get()
-
-        if current == goal:
-            return path
-
+    while current != goal:
+        node_count += 1
         current_manhattan = manhattan(current, goal)
         best_state = None
 
@@ -314,29 +378,34 @@ def Simulated_Annealing_solve(start, goal):
         T *= alpha
 
         if best_state:
-            q.put((best_state, path + [best_state]))
+            path.append(best_state)
+            current = best_state
         else:
-            return None
+            return None, node_count
 
-    return None
+    return path, node_count
 
-def beam_search_solve(starts, goal, k=2):
+def beam_search_solve(start, goal, k=2):
+    node_count = 0
+    if not is_solvable(start, goal):
+        return None, node_count
     q = queue.Queue()
 
-    if not isinstance(starts, list):
-        starts = [starts]
+    if not isinstance(start, list):
+        start = [start]
 
-    for start in starts:
-        q.put((start, [start]))
+    for s in start:
+        q.put((s, [s]))
 
     while not q.empty():
         candidates = []
+        node_count += k
 
         for _ in range(min(k, q.qsize())):
             current, path = q.get()
 
             if current == goal:
-                return path
+                return path, node_count
 
             neighbors = generate_new_states(current)
 
@@ -349,32 +418,7 @@ def beam_search_solve(starts, goal, k=2):
         for candidate in candidates[:k]:
             q.put((candidate[0], candidate[1]))
 
-    return None
-
-# def and_or_graph_search(start, goal):
-#     def or_search(state, path, goal):
-#         if state == goal:
-#             return []
-#         if state in path:
-#             return None
-#         for new_state in generate_new_states(state):
-#             if new_state in path:
-#                 continue
-#             plan = and_search([new_state], path + [state], goal)
-#             if plan is not None:
-#                 return [(state, plan)]
-#         return None
-
-#     def and_search(states, path, goal):
-#         plans = []
-#         for state in states:
-#             plan = or_search(state, path, goal)
-#             if plan is None:
-#                 return None
-#             plans.append((state, plan))
-#         return plans
-
-#     return or_search(start, [], goal)
+    return None, node_count
 
 def apply_moves(state, moves):
     current = state
@@ -393,7 +437,7 @@ def random_individual(length=30):
 
 def fitness(individual, start, goal):
     end_state = apply_moves(start, individual)
-    return -manhattan(end_state, goal)  # càng gần goal thì điểm càng cao (âm manhattan)
+    return -manhattan(end_state, goal)
 
 def mutate(individual, mutation_rate=0.1):
     new_individual = individual[:]
@@ -408,6 +452,8 @@ def crossover(parent1, parent2):
     return child
 
 def genetic_algorithm_solve(start, goal, population_size=100, generations=200, mutation_rate=0.1):
+    if not is_solvable(start, goal):
+        return None
     population = [random_individual() for _ in range(population_size)]
 
     for gen in range(generations):
@@ -423,7 +469,7 @@ def genetic_algorithm_solve(start, goal, population_size=100, generations=200, m
 
         result_state = apply_moves(start, child)
         if result_state == goal:
-            path = []
+            path = [start]
             temp_state = start
             for move in child:
                 blank_x, blank_y = find_blank(temp_state)
@@ -439,3 +485,229 @@ def genetic_algorithm_solve(start, goal, population_size=100, generations=200, m
         population = [mutate(crossover(parent1, parent2), mutation_rate) for _ in range(population_size)]
 
     return None
+
+def and_or_graph_search(start, goal, max_depth=20):
+    if not is_solvable(start, goal):
+        return None
+    def or_search(state, path, goal, visited, depth):
+        if state == goal:
+            return [state]
+        if state in visited:
+            return None
+        if depth > max_depth:
+            return None
+
+        visited.add(state)
+
+        for new_state in generate_new_states(state):
+            if new_state in visited:
+                continue
+
+            plan = and_search([new_state], path + [state], goal, visited.copy(), depth + 1)
+            if plan is not None:
+                return [state] + plan[0]
+
+        return None
+
+    def and_search(states, path, goal, visited, depth):
+        if depth > max_depth:
+            return None
+        plans = []
+        for state in states:
+            plan = or_search(state, path, goal, visited.copy(), depth)
+            if plan is None:
+                return None
+            plans.append(plan)
+        return plans
+
+    return or_search(start, [], goal, set(), 0)
+
+def generate_random_valid_state():
+    nums = list(range(9))
+    random.shuffle(nums)
+    state = []
+    for i in range(0, 9, 3):
+        state.append(tuple(nums[i:i+3]))
+    return tuple(state)
+
+
+def no_observation_search(num_starts=3, num_goals=3):
+    start_states = [generate_random_valid_state() for _ in range(num_starts)]
+    goal_states = [generate_random_valid_state() for _ in range(num_goals)]
+    results = []
+    for goal in goal_states:
+        path = []
+        for start in start_states:
+            if not is_solvable(start, goal):
+                break
+            found_path_for_this_goal, node = a_star_solve(start, goal)
+
+            if found_path_for_this_goal is not None:
+                path.append(found_path_for_this_goal)
+            else:
+                break
+        
+        if len(path) == num_starts:
+            for i in range(num_starts):
+                results.append({
+                    'start': start_states[i],
+                    'goal': goal,
+                    'path': path[i]
+                })
+            break
+    return results, start_states, goal_states
+
+def generate_random_goal_state(goal):
+    state = [list(row) for row in goal]
+    nums = list(range(9))
+    for i in range(3):
+        for j in range(3):
+            if goal[i][j] != 0:
+                nums.remove(goal[i][j])
+    if len(nums) > 0:
+        random.shuffle(nums)
+        for i in range(3):
+            for j in range(3):
+                if state[i][j] == 0 and len(nums) > 0:
+                    state[i][j] = nums.pop(0)
+    return tuple(tuple(row) for row in state)
+
+
+def partial_observation_search(goal_first, num_starts=3, num_goals=3):
+    start_states = [generate_random_valid_state() for _ in range(num_starts)]
+    goal_states = [generate_random_goal_state(goal_first) for _ in range(num_goals)]
+    results = []
+    for goal in goal_states:
+        path = []
+        for start in start_states:
+            if not is_solvable(start, goal):
+                break
+            found_path_for_this_goal, node = a_star_solve(start, goal)
+
+            if found_path_for_this_goal is not None:
+                path.append(found_path_for_this_goal)
+            else:
+                break
+        
+        if len(path) == num_starts:
+            for i in range(num_starts):
+                results.append({
+                    'start': start_states[i],
+                    'goal': goal,
+                    'path': path[i]
+                })
+            break
+    return results, start_states, goal_states
+
+def generate_and_test(goal):
+    start = []
+    results = []
+    while True:
+        start = generate_random_valid_state()
+        path = []
+        if not is_solvable(start, goal):
+            results.append({
+                    'start': start,
+                    'goal': goal,
+                    'path': path
+                })
+            continue
+
+        path, node = a_star_solve(start, goal)
+        results.append({
+                    'start': start,
+                    'goal': goal,
+                    'path': path
+                })
+        if path is not None:
+            return results
+
+def backtracking_search(start_state, goal_state, max_depth=30):
+    return recursive_backtracking(start_state, goal_state, [start_state], set(), max_depth)
+
+def recursive_backtracking(current_state, goal_state, path, visited_in_path, max_depth):
+    if current_state == goal_state:
+        return path
+
+    if len(path) > max_depth:
+        return None
+    visited_in_path.add(current_state)
+
+    possible_next_states = generate_new_states(current_state)
+
+    for next_state in possible_next_states:
+        is_consistent_here = (next_state not in visited_in_path)
+
+        if is_consistent_here:
+            result_path = recursive_backtracking(
+                next_state,
+                goal_state,
+                path + [next_state],
+                visited_in_path,
+                max_depth
+            )
+            if result_path is not None:
+                return result_path
+
+    visited_in_path.remove(current_state)
+    return None
+
+def ac3():
+    domain = set(range(9))
+    domains = [domain.copy() for _ in range(9)]
+    results = []
+        
+    queue = deque()
+    for i in range(9):
+        for j in range(9):
+            if i != j:
+                queue.append((i, j))
+    
+    while queue:
+        xi, xj = queue.popleft()
+
+        xi_domain_before = list(domains[xi].copy())
+        xj_domain_before = list(domains[xj].copy())
+
+        revised = revise(domains, xi, xj)
+
+        xi_domain_after = list(domains[xi].copy())
+        xj_domain_after = list(domains[xj].copy())
+
+        results.append({
+            'arc_processed': (f'Ô {xi}', f'Ô {xj}'),
+            'xi_domain_before': xi_domain_before,
+            'xj_domain_before': xj_domain_before,
+            'xi_domain_after_revise': xi_domain_after,
+            'xj_domain_after_revise': xj_domain_after,
+            'was_revised': revised
+        })
+
+        if revised:
+            if not domains[xi]:
+                return None, results
+        
+            for xk in range(len(domains)):
+                if xk != xi and xk != xj:
+                    if (xk, xi) not in queue: 
+                        queue.append((xk, xi))
+    
+    return domains, results
+
+def revise(current_domain, xi, xj):
+    removed = False
+
+    domain_xi_value = list(current_domain[xi])
+    for x_val in domain_xi_value:
+        found_support = False
+        for y_val in current_domain[xj]:
+            if x_val == y_val:
+                continue
+            if (xi > xj and x_val > y_val) or (xi < xj and x_val < y_val):
+                found_support = True
+                break
+
+        if not found_support:
+            current_domain[xi].remove(x_val)
+            removed = True
+    return removed
