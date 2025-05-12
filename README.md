@@ -23,7 +23,10 @@
 | 🔸 **Uniform Cost Search (UCS)**<br> - Sử dụng hàng đợi ưu tiên (Prority Queue).<br> - Mở rộng các trạng thái chưa đuyệt có chi phí đường đi nhỏ nhất. | ![UCS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/UCS.gif) |
 | 🔸 **Iterative Deepening Search (IDS)**<br> - Là một biến thể của thuật toán DFS.<br> - Có thể một giới hạn về độ sâu tối đa mà thuật toán được phép duyệt. | ![IDS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDS.gif) |
 
+> Hình ảnh so sánh hiệu suất các thuật toán
+![Screenshot 2025-05-12 170153](https://github.com/user-attachments/assets/a0991968-e8c0-4ee6-a344-2fdbf146070b)
 
+---
 
 ### 💡 2.2. Informed Search Algorithms (Tìm kiếm có thông tin)
 
