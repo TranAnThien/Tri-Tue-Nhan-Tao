@@ -45,6 +45,9 @@
 | 🔸 **A\*** (A-star)<br> - Sử dụng hàng đợi ưu tiên (Priority Queue) để lưu trữ các trạng thái.<br> - Chọn trạng trái có giá trị f(n) nhỏ nhất với công thức (`f(n) = g(n) + h(n)`).<br> Trong đó:<br> + h(n): giá trị manhattan.<br> + g(n): chi phí đường đi. | ![A\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/A_Star.gif) |
 | 🔸 **IDA\*** (Iterative Deepening A\*)<br> - Phiên bản tiết kiệm bộ nhớ của A\*.<br> - Hoạt động dựa trên một ngưỡng của giá trị f(n) cho mỗi lượt tìm kiếm theo chiều sâu.<br> - Ngưỡng này tăng dần qua mỗi lần lặp.  | ![IDA\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDA_Star.gif) |
 
+> Hình ảnh so sánh hiệu suất các thuật toán
+![Screenshot 2025-05-12 170153](https://github.com/user-attachments/assets/c56d606a-8dd3-4e09-a26f-b426d3e4e4c1)
+
 ---
 
 ### 🧬 2.3. Local Search (Tìm kiếm cục bộ)
@@ -66,6 +69,9 @@
 | 🔸 **Simulated Annealing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận tốt hơn hay xấu hơn trạng thái hiện tại.<br> - Có thêm 1 giá trị nhiệt độ giảm dần sau mỗi bước, 1 giá trị xác suất được tính khi trạng thái lân cận xấu hơn được xem xét.<br> - Duyệt qua các trạng thái lân cận:<br> + Nếu trạng thái đó tốt hơn trạng thái hiện tại thì sẽ chọn trang thái đó để di chuyển.<br> + Nếu trạng thái đó xấu hơn thì sẽ tính xác suất xem có dùng trạng thái đó để di chuyển hay không. | ![Simulated Annealing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimulatedAnnealing.gif) |
 | 🔸 **Beam Search**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duy trì song song k trạng thái thay vì chỉ một trạng thái.<br> - Tại mỗi bước, nó sẽ tạo ra tất cả các trạng thái lân cận từ k trạng thái, sau đó chọn ra k trạng thái tốt nhất cho bước tiếp theo. | ![Beam Search](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BeamSearch.gif) |
 | 🔸 **Genetic Algorithm**<br> - Dùng quần thể, chọn lọc cá thể tốt, sinh ra thế hệ mới.<br> - Cách chọn đường đi:<br>  + Khởi tạo quần thể.<br>  + Đánh giá độ thích nghi.<br>  + Lựa chọn cá thể.<br>  + Lai ghép.<br>  + Đột biến.<br>  + Sinh ra cá thể mới. | ![Genetic Algorithm](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Genetic.gif) |
+
+> Hình ảnh so sánh hiệu suất các thuật toán
+![Screenshot 2025-05-12 170410](https://github.com/user-attachments/assets/80c6bcee-ec50-4ca5-aebd-4cb5dcc94a5e)
 
 ---
 
