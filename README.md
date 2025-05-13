@@ -3,6 +3,7 @@
 ## 1. Mục tiêu
   * Nghiên cứu và cài đặt thuật toán tìm kiếm trong 6 nhóm thuật toán được học trên lớp vào bài toán 8 puzzle: Tiến hành nghiên cứu về lý thuyết và cơ chế hoạt động của 6 nhóm thuật toán, áp dụng các thuật toán này vào bài toán 8 puzzle nhằm kiểm tra tính đúng đắn và khả năng ứng dụng vào thực tế của các thuật toán.
   * Phân tích và so sánh hiệu quả (thời gian thực thi, số bước) của các thuật toán: Thực hiện chạy thử một số trường hợp trên bài toán 8 puzzle, thu thập dữ liệu hiệu suất để đánh giá từng thuật toán dựa trên thời gian tìm thấy đường đi, số bước di chuyển, chi phí đường đi, thời gian thực thi.
+  * Trực quan hóa quá trình tìm kiếm của thuật toán: Xây dựng giao diện hiển thị trực quan các bước duyệt trạng thái và đường đi được tạo ra bởi từng thuật toán, giúp quan sát và so sánh các thuật toán. Giao diện này cho phép người dùng có thể dễ dàng nhập trạng thái bắt đầu, trạng thái kết thúc và dễ dang chọn thuật toán để áp dụng vào bài toán.
   * Hiểu rõ được bản chất, ưu điểm và nhược điểm của từng thuật toán.
 ## 2. Nội dung
 > Trình bày về khái niệm, các thành phần chính và giải pháp của từng nhóm thuật toán và việc áp dụng, đánh giá 6 nhóm thuật toán đã học vào bài toán 8 puzzle.
