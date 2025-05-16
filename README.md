@@ -103,7 +103,7 @@
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 🔸 Simple Hill Climbing<br>
-     - Đây là phiên bản cơ bản nhất của thuật toán Hill Climbing.
+     - Đây là phiên bản cơ bản nhất của thuật toán Hill Climbing.<br>
      - Tại mỗi trạng thái, duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn (giá trị h(n) nhỏ hơn) để di chuyển. Vì thế thuật toán dễ bị mắc kẹt.
 > Ảnh gif minh họa thuật toán Simple Hill Climbing
 
