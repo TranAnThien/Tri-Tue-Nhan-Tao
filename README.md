@@ -102,13 +102,13 @@
   * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
-🔸 Simple Hill Climbing
+🔸 Simple Hill Climbing<br>
      - Đây là phiên bản cơ bản nhất của thuật toán Hill Climbing.
      - Tại mỗi trạng thái, duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn (giá trị h(n) nhỏ hơn) để di chuyển. Vì thế thuật toán dễ bị mắc kẹt.
 > Ảnh gif minh họa thuật toán Simple Hill Climbing
 
 
-🔸 Hill Climbing
+🔸 Hill Climbing<br>
      - Giống như Simple Hill Climbing, nhưng thay vì chọn trạng thái đầu tiên tốt hơn để di chuyển thì thuật toán này sẽ chọn trạng thái tốt nhất trong các trạng thái lân cận để di chuyển. Thuật toán này tốt hơn phiên bản Simple Hill Climbing nhưng vẫn có khả năng bị mắc kẹt.
 > Ảnh gif minh họa thuật toán Hill Climbing
 
