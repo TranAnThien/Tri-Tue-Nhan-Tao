@@ -10,19 +10,36 @@
 ### 🧠 2.1. Uninformed Search Algorithms (Tìm kiếm không có thông tin)
 
 > Các thành phần chính của bài toán
-  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
-  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
   * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
-  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
+  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải)
   * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
-| Thuật toán | GIF minh họa |
-|------------|--------------|
-| 🔸 **Breadth-First Search (BFS)**  <br> - Sử dụng cấu trúc hàng đợi (queue).<br> - Duyết tất cả các trạng thái ở cùng một độ sâu trước khi chuyển sang các trạng thái ở độ sâu tiếp theo. | ![BFS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BFS.gif) |
-| 🔸 **Depth-First Search (DFS)**<br> - Sử dụng cấu trúc ngăn xếp (Stack).<br> - Duyệt sâu xuống một nhánh hết sức có thể trước khi quay lui để thử các nhánh khác. | ![DFS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/DFS.gif) |
-| 🔸 **Uniform Cost Search (UCS)**<br> - Sử dụng hàng đợi ưu tiên (Prority Queue).<br> - Mở rộng các trạng thái chưa đuyệt có chi phí đường đi nhỏ nhất. | ![UCS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/UCS.gif) |
-| 🔸 **Iterative Deepening Search (IDS)**<br> - Là một biến thể của thuật toán DFS.<br> - Có thể một giới hạn về độ sâu tối đa mà thuật toán được phép duyệt. | ![IDS GIF](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDS.gif) |
+🔸 Breadth-First Search (BFS)
+     - BFS sử dụng cấu trúc hàng đợi (queue) để lưu các trạng thái đang chờ xét.
+     - Thuật toán bắt đầu từ trạng thái ban đầu, đẩy nó vào queue. Sau đó lặp lại các bước: lấy trạng thái đầu tiên trong queue ra, mở rộng ra tất cả các trạng thái kế tiếp hợp lệ (điều kiện: di chuyển một ô trống, không trùng trạng thái đã duyệt trước đó), rồi đưa các trạng thái mới này vào cuối queue.
+> Ảnh gif minh họa thuật toán BFS
+
+
+🔸 Depth-First Search (DFS)
+     - DFS sử dụng cấu trúc ngăn xếp (stack) để lưu các trạng thái.
+     - Di chuyển lần lượt từng bước đi hợp lệ và đi sâu vào một chuỗi di chuyển, đến khi không còn bước đi nào hợp lệ hoặc đạt trạng thái đích thì dừng hoặc quay lui. 
+> Ảnh gif minh họa thuật toán DFS
+
+
+🔸 Uniform Cost Search (UCS)
+     - UCS dùng hàng đợi ưu tiên (priority queue), ưu tiên chọn các trạng thái có tổng chi phí nhỏ nhất.
+     - Với mỗi bước di chuyển có chi phí bằng 1, UCS sẽ chọn trạng thái có tổng chi phí thấp nhất để mở rộng, từ đó tìm ra lời giải tối ưu.
+> Ảnh gif minh họa thuật toán UCS
+
+
+🔸 Iterative Deepening Search (IDS)
+     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
+     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
+> Ảnh gif minh họa thuật toán IDS
+
 
 > Hình ảnh so sánh hiệu suất các thuật toán
 ![Screenshot 2025-05-12 170153](https://github.com/user-attachments/assets/a0991968-e8c0-4ee6-a344-2fdbf146070b)
@@ -31,26 +48,38 @@
   * BFS: Tìm thấy được đường đi ngắn nhất, nhưng khá chậm, rất tốn bộ nhớ.
   * DFS: Đường đi tì thấy được có thể không phải là đường đi ngắn nhất. Khi chạy thuật toán, số nút được xét rất lớn và kết quả trả về thường là một đường đi dài, tốn ít bộ nhớ.
   * UCS: Tối ưu về chi phí đường đi, nếu tất cả đường đi có chi phí là 1 (đang áp dụng vào bài toán) thì nó cũng sẽ trả về đường đi ngắn nhất giống thuật toán BFS.
-  * IDS: Kết hợp ưu điểm của BFS và DFS.
+  * IDS: Kết hợp ưu điểm của BFS và DFS, tốn thời gian vì lặp lại nhiều lần.
 
 ---
 
 ### 💡 2.2. Informed Search Algorithms (Tìm kiếm có thông tin)
 
 > Các thành phần chính của bài toán
-  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
-  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
   * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
   * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
   * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
-  * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
+  * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích (tổng số sai lệch của các ô giữa trạng thái đầu và trạng thái đích).
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
-| Thuật toán |   GIF minh họa   |
-|------------|------------------|
-| 🔸 **Greedy Best-First Search**<br> - Sử dụng hàng đợi ưu tiên (Priority Queue).<br> - Chọn trạng thái có giá trị manhattan nhỏ nhất (được xem là trạng thái gần đích nhất).| ![Greedy](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Greedy.gif) |
-| 🔸 **A\*** (A-star)<br> - Sử dụng hàng đợi ưu tiên (Priority Queue) để lưu trữ các trạng thái.<br> - Chọn trạng trái có giá trị f(n) nhỏ nhất với công thức (`f(n) = g(n) + h(n)`).<br> Trong đó:<br> + h(n): giá trị manhattan.<br> + g(n): chi phí đường đi. | ![A\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/A_Star.gif) |
-| 🔸 **IDA\*** (Iterative Deepening A\*)<br> - Phiên bản tiết kiệm bộ nhớ của A\*.<br> - Hoạt động dựa trên một ngưỡng của giá trị f(n) cho mỗi lượt tìm kiếm theo chiều sâu.<br> - Ngưỡng này tăng dần qua mỗi lần lặp.  | ![IDA\*](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/IDA_Star.gif) |
+🔸 Greedy Best-First Search
+     - Greedy Best-First Search sử dụng hàng đợi ưu tiên (priority queue), mở rộng trạng thái dựa trên giá trị manhattan.
+     - Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị manhattan (h(n) nhỏ nhất để mở rộng, không quan tâm đến số bước đi (g(n).
+> Ảnh gif minh họa thuật toán Greedy Best-First Search
+
+
+🔸  A* (A-Star Search)
+     - Mỗi trạng thái được đánh giá bởi hàm chi phí: f(n) = h(n) + g(n). Trong đó h(n) là giá trị manhattan và g(n) là tổng chi phí đường đi.
+     - Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị f(n) nhỏ nhất.
+> Ảnh gif minh họa thuật toán A*
+
+
+🔸  IDA* (Iterative Deepening A-Star)
+     - Là sự kết hợp giữa A* và DFS lặp sâu (IDS). Thay vì sử dụng hàng đợi ưu tiên lớn, IDA* sử dụng một ngưỡng giới hạn f(n) (giống A*) trong mỗi lần tìm kiếm. 
+     - Chỉ mở rộng các trạng thái có f(n) nhỏ hơn ngưỡng giới hạn. Nếu không thấy lời giải thì sẽ tăng ngưỡng giới hạn lên và tiếp tục lặp lại.
+> Ảnh gif minh họa thuật toán IDA*
+
 
 > Hình ảnh so sánh hiệu suất các thuật toán
 ![Screenshot 2025-05-12 170153](https://github.com/user-attachments/assets/c56d606a-8dd3-4e09-a26f-b426d3e4e4c1)
@@ -58,29 +87,54 @@
 > Một số nhận xét khi áp dụng vào bài toán 8 puzzle
   * Greedy: Nhanh chóng tìm ra đường đi nếu có giá trị manhattan tốt nhưng đường đi thường không phải ngắn nhất.
   * A*: Hiệu quả cao khi áp dụng vào bài toán 8 puzzle, thời gian tìm thấy lời giải nhanh.
-  * IDA*: Kết hợp tính tối ưu của A* và hiệu quả bộ nhớ của IDS. 
+  * IDA*: Kết hợp tính tối ưu của A* và hiệu quả bộ nhớ của IDS, tốn thời gian do lặp lại nhiều lần. 
     
 ---
 
 ### 🧬 2.3. Local Search (Tìm kiếm cục bộ)
 
 > Các thành phần chính của bài toán
-  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
-  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
   * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
   * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
   * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
   * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
-| Thuật toán |   GIF minh họa   |
-|------------|------------------|
-| 🔸 **Simple Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn trạng thái hiện tại để di chuyển. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimpleHillClimbing.gif) |
-| 🔸 **Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận và chọn trạng thái lân cận tốt nhất để di chuyển. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/HillClimbing.gif) |
-| 🔸 **Stochastic Hill Climbing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duyệt qua các trạng thái lân cận, sau đó chọn ngẫu nhiên 1 trong các trạng thái tốt hơn để di chuyển. | ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/StochasticHillClimbing.gif) |
-| 🔸 **Simulated Annealing**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận tốt hơn hay xấu hơn trạng thái hiện tại.<br> - Có thêm 1 giá trị nhiệt độ giảm dần sau mỗi bước, 1 giá trị xác suất được tính khi trạng thái lân cận xấu hơn được xem xét.<br> - Duyệt qua các trạng thái lân cận:<br> + Nếu trạng thái đó tốt hơn trạng thái hiện tại thì sẽ chọn trang thái đó để di chuyển.<br> + Nếu trạng thái đó xấu hơn thì sẽ tính xác suất xem có dùng trạng thái đó để di chuyển hay không. | ![Simulated Annealing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimulatedAnnealing.gif) |
-| 🔸 **Beam Search**<br> - Dùng giá trị manhattan để kiểm tra xem trạng thái lân cận có tốt hơn trạng thái hiện tại hay không.<br> - Duy trì song song k trạng thái thay vì chỉ một trạng thái.<br> - Tại mỗi bước, nó sẽ tạo ra tất cả các trạng thái lân cận từ k trạng thái, sau đó chọn ra k trạng thái tốt nhất cho bước tiếp theo. | ![Beam Search](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BeamSearch.gif) |
-| 🔸 **Genetic Algorithm**<br> - Dùng quần thể, chọn lọc cá thể tốt, sinh ra thế hệ mới.<br> - Cách chọn đường đi:<br>  + Khởi tạo quần thể.<br>  + Đánh giá độ thích nghi.<br>  + Lựa chọn cá thể.<br>  + Lai ghép.<br>  + Đột biến.<br>  + Sinh ra cá thể mới. | ![Genetic Algorithm](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Genetic.gif) |
+🔸 Simple Hill Climbing
+     - Đây là phiên bản cơ bản nhất của thuật toán Hill Climbing.
+     - Tại mỗi trạng thái, duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn (giá trị h(n) nhỏ hơn) để di chuyển. Vì thế thuật toán dễ bị mắc kẹt.
+> Ảnh gif minh họa thuật toán Simple Hill Climbing
+
+
+🔸 Hill Climbing
+     - Giống như Simple Hill Climbing, nhưng thay vì chọn trạng thái đầu tiên tốt hơn để di chuyển thì thuật toán này sẽ chọn trạng thái tốt nhất trong các trạng thái lân cận để di chuyển. Thuật toán này tốt hơn phiên bản Simple Hill Climbing nhưng vẫn có khả năng bị mắc kẹt.
+> Ảnh gif minh họa thuật toán Hill Climbing
+
+
+🔸 Stochastic Hill Climbing
+     - Đây cũng là một biến thể của Hill Climbing, nhưng thay vì lựa chọn trạng thái tốt nhất hay là trạng thái tốt hơn đầu tiên thì thuật toán này sẽ chọn ngẫu nhiên. Thuật toán duyệt quá các trạng thái lân cận và chọn ngẫu nhiên một trạng thái tốt hơn để di chuyển. 
+> Ảnh gif minh họa thuật toán Stochastic Hill Climbing
+
+
+🔸 Simulated Annealing
+     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
+     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
+> Ảnh gif minh họa thuật toán Simulated Annealing
+
+
+🔸 Iterative Deepening Search (IDS)
+     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
+     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
+> Ảnh gif minh họa thuật toán DFS
+
+
+🔸 Iterative Deepening Search (IDS)
+     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
+     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
+> Ảnh gif minh họa thuật toán DFS
+
 
 > Hình ảnh so sánh hiệu suất các thuật toán
 ![Screenshot 2025-05-12 170410](https://github.com/user-attachments/assets/80c6bcee-ec50-4ca5-aebd-4cb5dcc94a5e)
