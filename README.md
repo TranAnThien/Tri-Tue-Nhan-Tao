@@ -17,26 +17,26 @@
   * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
-🔸 Breadth-First Search (BFS)
-     - BFS sử dụng cấu trúc hàng đợi (queue) để lưu các trạng thái đang chờ xét.
+🔸 Breadth-First Search (BFS)<br>
+     - BFS sử dụng cấu trúc hàng đợi (queue) để lưu các trạng thái đang chờ xét.<br>
      - Thuật toán bắt đầu từ trạng thái ban đầu, đẩy nó vào queue. Sau đó lặp lại các bước: lấy trạng thái đầu tiên trong queue ra, mở rộng ra tất cả các trạng thái kế tiếp hợp lệ (điều kiện: di chuyển một ô trống, không trùng trạng thái đã duyệt trước đó), rồi đưa các trạng thái mới này vào cuối queue.
 > Ảnh gif minh họa thuật toán BFS
 
 
-🔸 Depth-First Search (DFS)
-     - DFS sử dụng cấu trúc ngăn xếp (stack) để lưu các trạng thái.
+🔸 Depth-First Search (DFS)<br>
+     - DFS sử dụng cấu trúc ngăn xếp (stack) để lưu các trạng thái.<br>
      - Di chuyển lần lượt từng bước đi hợp lệ và đi sâu vào một chuỗi di chuyển, đến khi không còn bước đi nào hợp lệ hoặc đạt trạng thái đích thì dừng hoặc quay lui. 
 > Ảnh gif minh họa thuật toán DFS
 
 
-🔸 Uniform Cost Search (UCS)
-     - UCS dùng hàng đợi ưu tiên (priority queue), ưu tiên chọn các trạng thái có tổng chi phí nhỏ nhất.
+🔸 Uniform Cost Search (UCS)<br>
+     - UCS dùng hàng đợi ưu tiên (priority queue), ưu tiên chọn các trạng thái có tổng chi phí nhỏ nhất.<br>
      - Với mỗi bước di chuyển có chi phí bằng 1, UCS sẽ chọn trạng thái có tổng chi phí thấp nhất để mở rộng, từ đó tìm ra lời giải tối ưu.
 > Ảnh gif minh họa thuật toán UCS
 
 
-🔸 Iterative Deepening Search (IDS)
-     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
+🔸 Iterative Deepening Search (IDS)<br>
+     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.<br>
      - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
 > Ảnh gif minh họa thuật toán IDS
 
@@ -63,20 +63,20 @@
   * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích (tổng số sai lệch của các ô giữa trạng thái đầu và trạng thái đích).
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
-🔸 Greedy Best-First Search
-     - Greedy Best-First Search sử dụng hàng đợi ưu tiên (priority queue), mở rộng trạng thái dựa trên giá trị manhattan.
+🔸 Greedy Best-First Search<br>
+     - Greedy Best-First Search sử dụng hàng đợi ưu tiên (priority queue), mở rộng trạng thái dựa trên giá trị manhattan.<br>
      - Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị manhattan (h(n) nhỏ nhất để mở rộng, không quan tâm đến số bước đi (g(n).
 > Ảnh gif minh họa thuật toán Greedy Best-First Search
 
 
-🔸  A* (A-Star Search)
-     - Mỗi trạng thái được đánh giá bởi hàm chi phí: f(n) = h(n) + g(n). Trong đó h(n) là giá trị manhattan và g(n) là tổng chi phí đường đi.
+🔸  A* (A-Star Search)<br>
+     - Mỗi trạng thái được đánh giá bởi hàm chi phí: f(n) = h(n) + g(n). Trong đó h(n) là giá trị manhattan và g(n) là tổng chi phí đường đi.<br>
      - Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị f(n) nhỏ nhất.
 > Ảnh gif minh họa thuật toán A*
 
 
-🔸  IDA* (Iterative Deepening A-Star)
-     - Là sự kết hợp giữa A* và DFS lặp sâu (IDS). Thay vì sử dụng hàng đợi ưu tiên lớn, IDA* sử dụng một ngưỡng giới hạn f(n) (giống A*) trong mỗi lần tìm kiếm. 
+🔸  IDA* (Iterative Deepening A-Star)<br>
+     - Là sự kết hợp giữa A* và DFS lặp sâu (IDS). Thay vì sử dụng hàng đợi ưu tiên lớn, IDA* sử dụng một ngưỡng giới hạn f(n) (giống A*) trong mỗi lần tìm kiếm.<br>
      - Chỉ mở rộng các trạng thái có f(n) nhỏ hơn ngưỡng giới hạn. Nếu không thấy lời giải thì sẽ tăng ngưỡng giới hạn lên và tiếp tục lặp lại.
 > Ảnh gif minh họa thuật toán IDA*
 
@@ -113,13 +113,13 @@
 > Ảnh gif minh họa thuật toán Hill Climbing
 
 
-🔸 Stochastic Hill Climbing
+🔸 Stochastic Hill Climbing<br>
      - Đây cũng là một biến thể của Hill Climbing, nhưng thay vì lựa chọn trạng thái tốt nhất hay là trạng thái tốt hơn đầu tiên thì thuật toán này sẽ chọn ngẫu nhiên. Thuật toán duyệt quá các trạng thái lân cận và chọn ngẫu nhiên một trạng thái tốt hơn để di chuyển. 
 > Ảnh gif minh họa thuật toán Stochastic Hill Climbing
 
 
-🔸 Simulated Annealing
-     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
+🔸 Simulated Annealing<br>
+     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.<br>
      - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
 > Ảnh gif minh họa thuật toán Simulated Annealing
 
