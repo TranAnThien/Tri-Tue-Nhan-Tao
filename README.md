@@ -3,7 +3,7 @@
 ## 1. Mục tiêu
   * Nghiên cứu và cài đặt thuật toán tìm kiếm trong 6 nhóm thuật toán được học trên lớp vào bài toán 8 puzzle: Tiến hành nghiên cứu về lý thuyết và cơ chế hoạt động của 6 nhóm thuật toán, áp dụng các thuật toán này vào bài toán 8 puzzle nhằm kiểm tra tính đúng đắn và khả năng ứng dụng vào thực tế của các thuật toán.
   * Phân tích và so sánh hiệu quả (thời gian thực thi, số bước) của các thuật toán: Thực hiện chạy thử một số trường hợp trên bài toán 8 puzzle, thu thập dữ liệu hiệu suất để đánh giá từng thuật toán dựa trên thời gian tìm thấy đường đi, số bước di chuyển, chi phí đường đi, thời gian thực thi.
-  * Trực quan hóa quá trình tìm kiếm của thuật toán: Xây dựng giao diện hiển thị trực quan các bước duyệt trạng thái và đường đi được tạo ra bởi từng thuật toán, giúp quan sát và so sánh các thuật toán. Giao diện này cho phép người dùng có thể dễ dàng nhập trạng thái bắt đầu, trạng thái kết thúc và dễ dang chọn thuật toán để áp dụng vào bài toán.
+  * Trực quan hóa quá trình tìm kiếm của thuật toán: Xây dựng giao diện hiển thị trực quan các bước duyệt trạng thái và đường đi được tạo ra bởi từng thuật toán, giúp quan sát và so sánh các thuật toán. Giao diện này cho phép người dùng có thể dễ dàng nhập trạng thái bắt đầu, trạng thái kết thúc và dễ dàng chọn thuật toán để áp dụng vào bài toán.
   * Hiểu rõ được bản chất, ưu điểm và nhược điểm của từng thuật toán.
 ## 2. Nội dung
 > Trình bày về khái niệm, các thành phần chính và giải pháp của từng nhóm thuật toán và việc áp dụng, đánh giá 6 nhóm thuật toán đã học vào bài toán 8 puzzle.
@@ -65,7 +65,7 @@
 
 🔸 Greedy Best-First Search<br>
   * Greedy Best-First Search sử dụng hàng đợi ưu tiên (priority queue), mở rộng trạng thái dựa trên giá trị manhattan.<br>
-  * Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị manhattan (h(n) nhỏ nhất để mở rộng, không quan tâm đến số bước đi (g(n).
+  * Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị manhattan (h(n) nhỏ nhất để mở rộng, không quan tâm đến số bước đi (g(n)).
 > Ảnh gif minh họa thuật toán Greedy Best-First Search<br>
 ![Greedy Best-First Search Gif](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Greedy.gif)
 
@@ -120,7 +120,7 @@
 
 🔸 Simulated Annealing<br>
   * Thuật toán này cho phép di chuyển đến các trạng thái xấu hơn với xác suất phụ thuộc vào nhiệt độ.<br>
-  * Từ trạng thái hiện tại, chọn ngẫu nhiên mộ trạng thái. Nếu trạng thái đó tốt hơn thì di chuyển, nếu không thì tính xác suất nhận nó bằng công thức: 'P = exp(-Δh / T)'. Trong đó Δh là độ chênh lệch giá trị manhattan, T là nhiệt độ hiện tại. Sau mỗi bước thì nhiệt độ sẽ giảm dần.
+  * Từ trạng thái hiện tại, chọn ngẫu nhiên một trạng thái. Nếu trạng thái đó tốt hơn thì di chuyển, nếu không thì tính xác suất nhận nó bằng công thức: 'P = exp(-Δh / T)'. Trong đó Δh là độ chênh lệch giá trị manhattan, T là nhiệt độ hiện tại. Sau mỗi bước thì nhiệt độ sẽ giảm dần.
 > Ảnh gif minh họa thuật toán Simulated Annealing<br>
 ![Simulated Annealing Gif](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/SimulatedAnnealing.gif)
 
@@ -173,15 +173,15 @@
   * Phân rã bài toàn thành nhiều vấn đề con nhỏ hơn.<br>
   * Nút AND: Đại diện cho một vấn đề mà tất cả các vấn đề con của nó phải được giải quyết.<br>
   * Nút OR: Đại diện cho một vấn đề mà chỉ cần chọn một trong những vấn đề con của nó để giải quyết.<br>
-  * Trong bài toán 8-Puzzle, với mỗi nút OR (1 trạng thái) thì ta có thể lựa chọn 1 trong 4 hành động để di chuyển (lên, xuống, trái, phải). Sau khi lựa chọn hành động sẽ có 2 trường hợ xảy ra:<br>     
+  * Trong bài toán 8-Puzzle, với mỗi nút OR (1 trạng thái) thì ta có thể lựa chọn 1 trong 4 hành động để di chuyển (lên, xuống, trái, phải). Sau khi lựa chọn hành động sẽ có 2 trường hợp xảy ra:<br>     
     - Trường hợp thứ nhất: Tỉ lệ xảy ra là 70%, sau khi thực hiện hành động chỉ di chuyển 1 ô và sinh ra một trạng thái duy nhất.<br>
-    - Trường hợp thứ hai: Thỉ lệ xảy ra là 30%, sau khi thực hiện hành động thì sẽ di chuyển xa hơn bình thường, sau khi di chuyển 1 ô thì lại tiếp tục di chuyển sang 1 ô khác.<br>
-  * Và để giải quyết được nút AND (nút điều kiện) thì các trạng thái sinh ra sau khi nút OR lựa chọn hành động đều phải có đường đi đến đích. Nếu 1 trong các trạng thái không thỏa mã thì nút AND sẽ không được giải quyết và nút OR phải lựa chọn hành động khác để tiếp tục.
+    - Trường hợp thứ hai: Tỉ lệ xảy ra là 30%, sau khi thực hiện hành động thì sẽ di chuyển xa hơn bình thường, sau khi di chuyển 1 ô thì lại tiếp tục di chuyển sang 1 ô khác.<br>
+  * Và để giải quyết được nút AND (nút điều kiện) thì các trạng thái sinh ra sau khi nút OR lựa chọn hành động đều phải có đường đi đến đích. Nếu 1 trong các trạng thái không thỏa mãn thì nút AND sẽ không được giải quyết và nút OR phải lựa chọn hành động khác để tiếp tục.
 > Ảnh gif minh họa thuật toán AND-OR Search<br>
 ![And-Or Gif](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/And-Or.gif)
 
 🔸 No Observation<br>
-  * Ban đầu sẽ khỏi tọa một tập các trạng đầu và một tập các trạng thái đích một cách ngẫu nhiên.<br>
+  * Ban đầu sẽ khởi tạo một tập các trạng đầu và một tập các trạng thái đích một cách ngẫu nhiên.<br>
   * Kiểm tra tất cả các trạng thái đầu xem có đường đi để đến được đích hay không bằng các thuật toán tìm kiếm ở nhóm trước (BFS, DFS, A*, ...)<br>
   * Nếu có một trạng thái đích chung mà tất cả các trạng thái đầu đều có đường đi đến nó thì kết quả trả về sẽ là tập tất cả đường đi đó.
 > Ảnh gif minh họa thuật toán No Observation<br>
@@ -214,7 +214,7 @@
   * Thu hẹp miền giá trị của các biến để tạo ra trạng thái cuối cùng thỏa mãn các ràng buộc.
 
 🔸 Generate and Test<br>
-  * Tạo ra một trạng thái mới ngẫu nhiên và kiêm tra xem trạng thái đó có đường đi đến trạng thái đích hay không.<br>  
+  * Tạo ra một trạng thái mới ngẫu nhiên và kiểm tra xem trạng thái đó có đường đi đến trạng thái đích hay không.<br>  
      - Nếu đi được đến đích thì sẽ trả về tập các đường đi.<br>  
      - Nếu không thì sẽ tạo lại một trạng thái mới khác và tiếp tục kiểm tra cho đến khi có trạng thái có đường đi đến trạng thái đích.
 > Ảnh gif minh họa thuật toán Generate and Test<br>
