@@ -266,9 +266,9 @@
      - Với mỗi episode:<br>
        + Chạy tối đa max_steps bước hoặc đến khi đạt trạng thái đích.<br>
        + Tại mỗi bước:<br>   
-          Chọn hành động theo epsilon-greedy.<br>   
-          Cập nhật Q-value cho trạng thái hiện tại.<br>   
-          Di chuyển đến trạng thái tiếp theo.<br>
+          Chọn hành động theo epsilon-greedy.  
+          Cập nhật Q-value cho trạng thái hiện tại. 
+          Di chuyển đến trạng thái tiếp theo.
      - Sau mỗi episode, epsilon được giảm dần (epsilon_decay) để tăng khả năng khai thác tri thức đã học.
   * Trích xuất đường đi:<br>
      - Sau khi huấn luyện, sử dụng Q-table để tái tạo đường đi từ trạng thái đầu đến trạng thái đích:<br>
