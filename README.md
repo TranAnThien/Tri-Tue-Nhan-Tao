@@ -20,8 +20,8 @@
 🔸 Breadth-First Search (BFS)<br>
   * BFS sử dụng cấu trúc hàng đợi (queue) để lưu các trạng thái đang chờ xét.<br>
   * Thuật toán bắt đầu từ trạng thái ban đầu, đẩy nó vào queue. Sau đó lặp lại các bước: lấy trạng thái đầu tiên trong queue ra, mở rộng ra tất cả các trạng thái kế tiếp hợp lệ (điều kiện: di chuyển một ô trống, không trùng trạng thái đã duyệt trước đó), rồi đưa các trạng thái mới này vào cuối queue.
-> Ảnh gif minh họa thuật toán BFS
-![BFS Gif] (https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BFS.gif)
+> Ảnh gif minh họa thuật toán BFS<br>
+![BFS Gif](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/BFS.gif)
 
 
 🔸 Depth-First Search (DFS)<br>
