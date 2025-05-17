@@ -1,6 +1,7 @@
 import queue
 import random
 import math
+import time
 from collections import deque
 
 MOVES = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -225,11 +226,10 @@ def ida_star_solve(start, goal):
         q.put((start, [start], 0))
         visited = set()
         min_threshold = float('inf')
-        node_count = 0
 
         while not q.empty():
             current, path, g = q.get()
-            node_count += 1
+            total_node += 1
             f = g + manhattan(current, goal)
 
             if f > threshold:
@@ -245,7 +245,6 @@ def ida_star_solve(start, goal):
                 if new_state not in visited:
                     q.put((new_state, path + [new_state], g + 1))
 
-        total_node += node_count
         if min_threshold == float('inf'):
             return None, total_node
 
@@ -399,10 +398,10 @@ def beam_search_solve(start, goal, k=2):
 
     while not q.empty():
         candidates = []
-        node_count += k
 
         for _ in range(min(k, q.qsize())):
             current, path = q.get()
+            node_count += 1
 
             if current == goal:
                 return path, node_count
@@ -486,41 +485,70 @@ def genetic_algorithm_solve(start, goal, population_size=100, generations=200, m
 
     return None
 
-def and_or_graph_search(start, goal, max_depth=20):
-    if not is_solvable(start, goal):
-        return None
-    def or_search(state, path, goal, visited, depth):
+def and_or_graph_search(start, goal, max_depth=30):
+    visited = {}
+
+    def or_search(state, path, depth):
+
         if state == goal:
             return [state]
-        if state in visited:
+
+        if state in path:
             return None
+
         if depth > max_depth:
             return None
 
-        visited.add(state)
+        if state in visited:
+            return visited[state]
 
-        for new_state in generate_new_states(state):
-            if new_state in visited:
-                continue
+        new_path = path + [state]
+        
+        action_deltas = get_possible_actions(state)
 
-            plan = and_search([new_state], path + [state], goal, visited.copy(), depth + 1)
-            if plan is not None:
-                return [state] + plan[0]
+        for delta in action_deltas:
+            state_single = apply_moves(state, [delta])
 
+            action_deltas_next = get_possible_actions(state_single)
+            while True:
+                state_double = apply_moves(state_single, [random.choice(action_deltas_next)])
+                if state_double != state:
+                    break
+            
+            if random.random() < 0.7:
+                outcomes = [state_single]
+            else:
+                outcomes = [state_single, state_double]
+            
+            plans_from_and = and_search(outcomes, new_path, depth + 1)
+
+            if plans_from_and is not None:
+                path_ok = plans_from_and[0]
+                
+                current_plan = [state] + path_ok
+                visited[state] = current_plan
+                return current_plan
+        
+        visited[state] = None 
         return None
 
-    def and_search(states, path, goal, visited, depth):
-        if depth > max_depth:
-            return None
+    def and_search(states, path, depth):
         plans = []
-        for state in states:
-            plan = or_search(state, path, goal, visited.copy(), depth)
-            if plan is None:
+        for i, s_outcome in enumerate(states):
+            plan_for_outcome = or_search(s_outcome, path, depth) 
+            
+            if plan_for_outcome is None:
                 return None
-            plans.append(plan)
+            plans.append(plan_for_outcome)
+        
         return plans
-
-    return or_search(start, [], goal, set(), 0)
+    
+    
+    result_path_of_tuples = or_search(start, [], 0)
+    if result_path_of_tuples:
+        return [list(map(list, s_tuple)) for s_tuple in result_path_of_tuples]
+    
+    return None
 
 def generate_random_valid_state():
     nums = list(range(9))
@@ -602,7 +630,10 @@ def partial_observation_search(goal_first, num_starts=3, num_goals=3):
 def generate_and_test(goal):
     start = []
     results = []
+    i = 0
     while True:
+        i += 1
+        print(i)
         start = generate_random_valid_state()
         path = []
         if not is_solvable(start, goal):
@@ -622,37 +653,52 @@ def generate_and_test(goal):
         if path is not None:
             return results
 
-def backtracking_search(start_state, goal_state, max_depth=30):
-    return recursive_backtracking(start_state, goal_state, [start_state], set(), max_depth)
+def backtracking():
+    variables = 9
+    domains = [list(range(9)) for _ in range(variables)]
+    assignment = []
+    trace_log = []
 
-def recursive_backtracking(current_state, goal_state, path, visited_in_path, max_depth):
-    if current_state == goal_state:
-        return path
+    def is_valid(assignment, value):
+        if value in assignment:
+            return False
+        if assignment:
+            if value >= assignment[-1]:
+                return False
+        return True
 
-    if len(path) > max_depth:
+    def backtrack():
+        idx = len(assignment)
+        if idx == variables:
+            return assignment.copy()
+
+        for value in domains[idx]:
+            trace_log.append(f"Xét ô {idx}: Giá trị {value} ")
+            if is_valid(assignment, value):
+                trace_log[-1] += "✔ hợp lệ"
+                assignment.append(value)
+
+                result = backtrack()
+                if result is not None:
+                    return result
+
+                trace_log.append(f"⤴️ Không có giá trị hợp lệ ở ô {idx + 1} → Quay lui")
+                assignment.pop()
+            else:
+                trace_log[-1] += "❌ không hợp lệ"
+
         return None
-    visited_in_path.add(current_state)
 
-    possible_next_states = generate_new_states(current_state)
+    solution = backtrack()
+    return solution, trace_log
 
-    for next_state in possible_next_states:
-        is_consistent_here = (next_state not in visited_in_path)
+def constraint(constraint_type, xi_val, xj_val, xi_idx, xj_idx):
+    if constraint_type == "increasing":
+        return (xi_idx < xj_idx and xi_val < xj_val) or (xi_idx > xj_idx and xi_val > xj_val)
+    elif constraint_type == "sum":
+        return xi_val + xj_val >= (xi_idx + xj_idx)
 
-        if is_consistent_here:
-            result_path = recursive_backtracking(
-                next_state,
-                goal_state,
-                path + [next_state],
-                visited_in_path,
-                max_depth
-            )
-            if result_path is not None:
-                return result_path
-
-    visited_in_path.remove(current_state)
-    return None
-
-def ac3():
+def ac3(constraint_type):
     domain = set(range(9))
     domains = [domain.copy() for _ in range(9)]
     results = []
@@ -669,7 +715,7 @@ def ac3():
         xi_domain_before = list(domains[xi].copy())
         xj_domain_before = list(domains[xj].copy())
 
-        revised = revise(domains, xi, xj)
+        revised = revise(domains, xi, xj, constraint_type)
 
         xi_domain_after = list(domains[xi].copy())
         xj_domain_after = list(domains[xj].copy())
@@ -694,7 +740,7 @@ def ac3():
     
     return domains, results
 
-def revise(current_domain, xi, xj):
+def revise(current_domain, xi, xj, constraint_type):
     removed = False
 
     domain_xi_value = list(current_domain[xi])
@@ -703,7 +749,7 @@ def revise(current_domain, xi, xj):
         for y_val in current_domain[xj]:
             if x_val == y_val:
                 continue
-            if (xi > xj and x_val > y_val) or (xi < xj and x_val < y_val):
+            if constraint(constraint_type, x_val, y_val, xi, xj):
                 found_support = True
                 break
 
@@ -711,3 +757,210 @@ def revise(current_domain, xi, xj):
             current_domain[xi].remove(x_val)
             removed = True
     return removed
+
+def get_possible_actions(state_tuple):
+    actions = []
+    blank_r, blank_c = find_blank(state_tuple)
+
+    potential_moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+    for dr, dc in potential_moves:
+        new_blank_r, new_blank_c = blank_r + dr, blank_c + dc
+        if 0 <= new_blank_r < 3 and 0 <= new_blank_c < 3:
+            actions.append((dr, dc))
+    return actions
+
+def choose_q_learning_action(state, current_q_table, epsilon):
+    """
+    Chọn một hành động sử dụng chiến lược epsilon-greedy.
+    current_q_table là một dict thông thường.
+    """
+    possible_actions = get_possible_actions(state)
+    if not possible_actions:
+        return None
+
+    if random.random() < epsilon:
+        return random.choice(possible_actions)
+    else:
+        if state not in current_q_table:
+            return random.choice(possible_actions)
+
+        q_values_for_state = current_q_table[state]
+
+        max_q = -float('inf')
+        best_actions = []
+        for action in possible_actions:
+            q_val = q_values_for_state.get(action, 0.0) 
+            if q_val > max_q:
+                max_q = q_val
+                best_actions = [action]
+            elif q_val == max_q:
+                best_actions.append(action)
+
+        return random.choice(best_actions) if best_actions else random.choice(possible_actions)
+
+def q_learning_train(start_config_state, goal_state, q_table_to_train,
+                       num_episodes=20000,
+                       alpha=0.1, gamma=0.95,
+                       initial_epsilon=1.0, epsilon_decay=0.99995,
+                       min_epsilon=0.01,
+                       max_steps_per_episode=1000):
+    """
+    Huấn luyện tác tử Q-learning.
+    q_table_to_train là một dict thông thường {} được truyền vào.
+    """
+    current_q_table = q_table_to_train 
+    epsilon = initial_epsilon
+    
+
+    for episode in range(num_episodes):
+        current_state = start_config_state
+        episode_path_length = 0
+
+        for step in range(max_steps_per_episode):
+            action = choose_q_learning_action(current_state, current_q_table, epsilon)
+            if action is None: 
+                break
+
+            next_state = apply_moves(current_state, [action])
+            episode_path_length +=1
+
+            reward = -1  
+            if next_state == goal_state:
+                reward = 100  
+            
+            if current_state not in current_q_table:
+                current_q_table[current_state] = {}
+            old_q_value = current_q_table[current_state].get(action, 0.0)
+            
+            max_future_q = 0.0
+            if next_state != goal_state:
+                next_possible_actions = get_possible_actions(next_state)
+                if next_possible_actions:
+                    if next_state in current_q_table:
+                        q_values_for_next_state_dict = current_q_table[next_state]
+                        action_qs = [q_values_for_next_state_dict.get(next_act, 0.0) for next_act in next_possible_actions]
+                        if action_qs: 
+                           max_future_q = max(action_qs)
+
+            
+            new_q_value = old_q_value + alpha * (reward + gamma * max_future_q - old_q_value)
+            
+            current_q_table[current_state][action] = new_q_value
+
+            current_state = next_state
+            if current_state == goal_state:
+                break
+        
+        epsilon = max(min_epsilon, epsilon * epsilon_decay)
+        
+        if (episode + 1) % (max(1, num_episodes // 20)) == 0 or episode == num_episodes - 1:
+            status = "Đạt đích" if current_state == goal_state else "Chưa đạt đích"
+            print(f"Q-Train Episode {episode + 1}/{num_episodes}. Epsilon: {epsilon:.4f}. Độ dài path: {episode_path_length}. {status}")
+            
+    return current_q_table
+
+def q_learning_get_path(start_state, goal_state, trained_q_table, max_path_length=100):
+    """
+    Trích xuất đường đi từ Q-table (dict thông thường) đã huấn luyện.
+    (Nội dung hàm này không thay đổi nhiều vì đã sử dụng .get() hợp lý)
+    """
+    current_state = start_state
+    path = [current_state]
+    steps_taken = 0
+
+    for _ in range(max_path_length):
+        steps_taken += 1
+        if current_state == goal_state:
+            return path, steps_taken
+
+        possible_actions = get_possible_actions(current_state)
+        if not possible_actions:
+            return None, steps_taken 
+
+        q_values_for_state_dict = trained_q_table.get(current_state) 
+        if not q_values_for_state_dict: 
+            return None, steps_taken 
+
+        best_q_value = -float('inf')
+        best_actions = []
+        for action in possible_actions:
+            action_q_value = q_values_for_state_dict.get(action, -float('inf')) 
+            if action_q_value > best_q_value:
+                best_q_value = action_q_value
+                best_actions = [action]
+            elif action_q_value == best_q_value:
+                best_actions.append(action)
+        
+        if not best_actions: 
+            return None, steps_taken
+        
+        chosen_action = random.choice(best_actions)
+        next_state_candidate = apply_moves(current_state, [chosen_action])
+
+        if next_state_candidate in path:
+            alternative_good_actions = []
+            for alt_action in best_actions:
+                if alt_action == chosen_action:
+                    continue
+                alt_next_state = apply_moves(current_state, [alt_action])
+                if alt_next_state not in path:
+                    alternative_good_actions.append(alt_action)
+            
+            if alternative_good_actions:
+                chosen_action = random.choice(alternative_good_actions)
+                next_state = apply_moves(current_state, [chosen_action])
+            else:
+                return None, steps_taken 
+        else:
+            next_state = next_state_candidate
+            
+        path.append(next_state)
+        current_state = next_state
+
+    return None, steps_taken
+
+def q_learning(start_state, goal_state,
+                     num_episodes=20000, 
+                     alpha=0.1, 
+                     gamma=0.95,
+                     initial_epsilon=1.0, 
+                     epsilon_decay=0.99995,
+                     min_epsilon=0.01,
+                     max_steps_per_episode=1000,
+                     max_path_length_eval=50):
+    """
+    Giải quyết 8-puzzle bằng Q-learning, sử dụng dict thông thường cho Q-table.
+    """
+    if not is_solvable(start_state, goal_state): 
+        print("Puzzle không thể giải được.")
+        return None, 0
+
+    q_table = {}
+
+    print(f"Bắt đầu Q-learning với các tham số: episodes={num_episodes}, alpha={alpha}, gamma={gamma}, epsilon_init={initial_epsilon}")
+
+    trained_q_table = q_learning_train(
+        start_config_state=start_state, 
+        goal_state=goal_state,
+        q_table_to_train=q_table,
+        num_episodes=num_episodes, 
+        alpha=alpha, 
+        gamma=gamma,
+        initial_epsilon=initial_epsilon, 
+        epsilon_decay=epsilon_decay,
+        min_epsilon=min_epsilon,
+        max_steps_per_episode=max_steps_per_episode
+    )
+    
+    training_duration_msg = f"Huấn luyện Q-learning hoàn tất. Kích thước Q-table: {len(trained_q_table)} trạng thái."
+    print(training_duration_msg)
+    print("Đang trích xuất đường đi từ Q-table...")
+    path, node_count = q_learning_get_path(start_state, goal_state, trained_q_table, max_path_length=max_path_length_eval)
+
+    if path:
+        print(f"Tìm thấy đường đi bằng Q-learning với {len(path)-1} bước di chuyển.")
+    else:
+        print("Không thể tìm thấy đường đi bằng Q-table đã học trong các ràng buộc đã cho.")
+    
+    return path
