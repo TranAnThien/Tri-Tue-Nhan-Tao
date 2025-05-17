@@ -265,7 +265,7 @@
   * Chiến lược huấn luyện:<br>
      - Với mỗi episode:<br>
        + Chạy tối đa max_steps bước hoặc đến khi đạt trạng thái đích.<br>
-       + Tại mỗi bước:
+       + Tại mỗi bước:<br>
           Chọn hành động theo epsilon-greedy.  
           Cập nhật Q-value cho trạng thái hiện tại. 
           Di chuyển đến trạng thái tiếp theo.
