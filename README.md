@@ -18,26 +18,26 @@
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 🔸 Breadth-First Search (BFS)<br>
-     - BFS sử dụng cấu trúc hàng đợi (queue) để lưu các trạng thái đang chờ xét.<br>
-     - Thuật toán bắt đầu từ trạng thái ban đầu, đẩy nó vào queue. Sau đó lặp lại các bước: lấy trạng thái đầu tiên trong queue ra, mở rộng ra tất cả các trạng thái kế tiếp hợp lệ (điều kiện: di chuyển một ô trống, không trùng trạng thái đã duyệt trước đó), rồi đưa các trạng thái mới này vào cuối queue.
+  * BFS sử dụng cấu trúc hàng đợi (queue) để lưu các trạng thái đang chờ xét.<br>
+  * Thuật toán bắt đầu từ trạng thái ban đầu, đẩy nó vào queue. Sau đó lặp lại các bước: lấy trạng thái đầu tiên trong queue ra, mở rộng ra tất cả các trạng thái kế tiếp hợp lệ (điều kiện: di chuyển một ô trống, không trùng trạng thái đã duyệt trước đó), rồi đưa các trạng thái mới này vào cuối queue.
 > Ảnh gif minh họa thuật toán BFS
 
 
 🔸 Depth-First Search (DFS)<br>
-     - DFS sử dụng cấu trúc ngăn xếp (stack) để lưu các trạng thái.<br>
-     - Di chuyển lần lượt từng bước đi hợp lệ và đi sâu vào một chuỗi di chuyển, đến khi không còn bước đi nào hợp lệ hoặc đạt trạng thái đích thì dừng hoặc quay lui. 
+  * DFS sử dụng cấu trúc ngăn xếp (stack) để lưu các trạng thái.<br>
+  * Di chuyển lần lượt từng bước đi hợp lệ và đi sâu vào một chuỗi di chuyển, đến khi không còn bước đi nào hợp lệ hoặc đạt trạng thái đích thì dừng hoặc quay lui. 
 > Ảnh gif minh họa thuật toán DFS
 
 
 🔸 Uniform Cost Search (UCS)<br>
-     - UCS dùng hàng đợi ưu tiên (priority queue), ưu tiên chọn các trạng thái có tổng chi phí nhỏ nhất.<br>
-     - Với mỗi bước di chuyển có chi phí bằng 1, UCS sẽ chọn trạng thái có tổng chi phí thấp nhất để mở rộng, từ đó tìm ra lời giải tối ưu.
+  * UCS dùng hàng đợi ưu tiên (priority queue), ưu tiên chọn các trạng thái có tổng chi phí nhỏ nhất.<br>
+  * Với mỗi bước di chuyển có chi phí bằng 1, UCS sẽ chọn trạng thái có tổng chi phí thấp nhất để mở rộng, từ đó tìm ra lời giải tối ưu.
 > Ảnh gif minh họa thuật toán UCS
 
 
 🔸 Iterative Deepening Search (IDS)<br>
-     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.<br>
-     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
+  * IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.<br>
+  * IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
 > Ảnh gif minh họa thuật toán IDS
 
 
@@ -64,20 +64,20 @@
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 🔸 Greedy Best-First Search<br>
-     - Greedy Best-First Search sử dụng hàng đợi ưu tiên (priority queue), mở rộng trạng thái dựa trên giá trị manhattan.<br>
-     - Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị manhattan (h(n) nhỏ nhất để mở rộng, không quan tâm đến số bước đi (g(n).
+  * Greedy Best-First Search sử dụng hàng đợi ưu tiên (priority queue), mở rộng trạng thái dựa trên giá trị manhattan.<br>
+  * Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị manhattan (h(n) nhỏ nhất để mở rộng, không quan tâm đến số bước đi (g(n).
 > Ảnh gif minh họa thuật toán Greedy Best-First Search
 
 
 🔸  A* (A-Star Search)<br>
-     - Mỗi trạng thái được đánh giá bởi hàm chi phí: f(n) = h(n) + g(n). Trong đó h(n) là giá trị manhattan và g(n) là tổng chi phí đường đi.<br>
-     - Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị f(n) nhỏ nhất.
+  * Mỗi trạng thái được đánh giá bởi hàm chi phí: f(n) = h(n) + g(n). Trong đó h(n) là giá trị manhattan và g(n) là tổng chi phí đường đi.<br>
+  * Tại mỗi bước đi, thuật toán sẽ chọn trạng thái có giá trị f(n) nhỏ nhất.
 > Ảnh gif minh họa thuật toán A*
 
 
 🔸  IDA* (Iterative Deepening A-Star)<br>
-     - Là sự kết hợp giữa A* và DFS lặp sâu (IDS). Thay vì sử dụng hàng đợi ưu tiên lớn, IDA* sử dụng một ngưỡng giới hạn f(n) (giống A*) trong mỗi lần tìm kiếm.<br>
-     - Chỉ mở rộng các trạng thái có f(n) nhỏ hơn ngưỡng giới hạn. Nếu không thấy lời giải thì sẽ tăng ngưỡng giới hạn lên và tiếp tục lặp lại.
+  * Là sự kết hợp giữa A* và DFS lặp sâu (IDS). Thay vì sử dụng hàng đợi ưu tiên lớn, IDA* sử dụng một ngưỡng giới hạn f(n) (giống A*) trong mỗi lần tìm kiếm.<br>
+  * Chỉ mở rộng các trạng thái có f(n) nhỏ hơn ngưỡng giới hạn. Nếu không thấy lời giải thì sẽ tăng ngưỡng giới hạn lên và tiếp tục lặp lại.
 > Ảnh gif minh họa thuật toán IDA*
 
 
@@ -103,40 +103,40 @@
 > Giải pháp: Chuỗi các hành động dẫn từ trạng thái đầu đến trạng thái đích.
 
 🔸 Simple Hill Climbing<br>
-     - Đây là phiên bản cơ bản nhất của thuật toán Hill Climbing.<br>
-     - Tại mỗi trạng thái, duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn (giá trị h(n) nhỏ hơn) để di chuyển. Vì thế thuật toán dễ bị mắc kẹt.
+  * Đây là phiên bản cơ bản nhất của thuật toán Hill Climbing.<br>
+  * Tại mỗi trạng thái, duyệt qua các trạng thái lân cận và chọn trạng thái đầu tiên tốt hơn (giá trị h(n) nhỏ hơn) để di chuyển. Vì thế thuật toán dễ bị mắc kẹt.
 > Ảnh gif minh họa thuật toán Simple Hill Climbing
 
 
 🔸 Hill Climbing<br>
-     - Giống như Simple Hill Climbing, nhưng thay vì chọn trạng thái đầu tiên tốt hơn để di chuyển thì thuật toán này sẽ chọn trạng thái tốt nhất trong các trạng thái lân cận để di chuyển. Thuật toán này tốt hơn phiên bản Simple Hill Climbing nhưng vẫn có khả năng bị mắc kẹt.
+  * Giống như Simple Hill Climbing, nhưng thay vì chọn trạng thái đầu tiên tốt hơn để di chuyển thì thuật toán này sẽ chọn trạng thái tốt nhất trong các trạng thái lân cận để di chuyển. Thuật toán này tốt hơn phiên bản Simple Hill Climbing nhưng vẫn có khả năng bị mắc kẹt.
 > Ảnh gif minh họa thuật toán Hill Climbing
 
 
 🔸 Stochastic Hill Climbing<br>
-     - Đây cũng là một biến thể của Hill Climbing, nhưng thay vì lựa chọn trạng thái tốt nhất hay là trạng thái tốt hơn đầu tiên thì thuật toán này sẽ chọn ngẫu nhiên. Thuật toán duyệt quá các trạng thái lân cận và chọn ngẫu nhiên một trạng thái tốt hơn để di chuyển. 
+  * Đây cũng là một biến thể của Hill Climbing, nhưng thay vì lựa chọn trạng thái tốt nhất hay là trạng thái tốt hơn đầu tiên thì thuật toán này sẽ chọn ngẫu nhiên. Thuật toán duyệt quá các trạng thái lân cận và chọn ngẫu nhiên một trạng thái tốt hơn để di chuyển. 
 > Ảnh gif minh họa thuật toán Stochastic Hill Climbing
 
 
 🔸 Simulated Annealing<br>
-     - Thuật toán này cho phép di chuyển đến các trạng thái xấu hơn với xác suất phụ thuộc vào nhiệt độ.<br>
-     - Từ trạng thái hiện tại, chọn ngẫu nhiên mộ trạng thái. Nếu trạng thái đó tốt hơn thì di chuyển, nếu không thì tính xác suất nhận nó bằng công thức: 'P = exp(-Δh / T)'. Trong đó Δh là độ chênh lệch giá trị manhattan, T là nhiệt độ hiện tại. Sau mỗi bước thì nhiệt độ sẽ giảm dần.
+  * Thuật toán này cho phép di chuyển đến các trạng thái xấu hơn với xác suất phụ thuộc vào nhiệt độ.<br>
+  * Từ trạng thái hiện tại, chọn ngẫu nhiên mộ trạng thái. Nếu trạng thái đó tốt hơn thì di chuyển, nếu không thì tính xác suất nhận nó bằng công thức: 'P = exp(-Δh / T)'. Trong đó Δh là độ chênh lệch giá trị manhattan, T là nhiệt độ hiện tại. Sau mỗi bước thì nhiệt độ sẽ giảm dần.
 > Ảnh gif minh họa thuật toán Simulated Annealing
 
 
 🔸 Beam Search<br>
-     - Khởi đầu bằng một trạng thái ban đầu, sau đó xét qua các trạng thái lân cận và lấy ra 'k' trạng thái có giá trị h(n) nhỏ nhất.<br>
-     - Tại mỗi vòng lặp, thuật toán tạo ra tất cả trạng thái lân cận từ 'k' trạng thái hiện tại. Sau đó chọn ra 'k' trạng thái có giá trị h(n) nhỏ nhất để thực hiện vòng lặp tiếp theo. Tiếp tục lặp lại cho đến khi tìm đến đích.
+  * Khởi đầu bằng một trạng thái ban đầu, sau đó xét qua các trạng thái lân cận và lấy ra 'k' trạng thái có giá trị h(n) nhỏ nhất.<br>
+  * Tại mỗi vòng lặp, thuật toán tạo ra tất cả trạng thái lân cận từ 'k' trạng thái hiện tại. Sau đó chọn ra 'k' trạng thái có giá trị h(n) nhỏ nhất để thực hiện vòng lặp tiếp theo. Tiếp tục lặp lại cho đến khi tìm đến đích.
 > Ảnh gif minh họa thuật toán Beam Search
 
 
 🔸 Genetic Algorithm<br>
-     - Khởi tạo quần thể gồm nhiều chuỗi hành động ngẫu nhiên.<br>
-     - Đánh giá độ thích nghi (fitness) bằng cách áp dụng chuỗi hành động vào trạng thái ban đầu và tính h(n) của kết quả.<br>
-     - Chọn lọc các cá thể tốt để sinh sản.<br>
-     - Lai ghép (crossover) các cặp cá thể để tạo ra cá thể con.<br>
-     - Đột biến (mutation) một số điểm trong chuỗi hành động để đa dạng hóa quần thể.<br>
-     - Lặp lại các bước trên qua nhiều thế hệ cho đến khi tìm được lời giải (h(n) = 0).
+  * Khởi tạo quần thể gồm nhiều chuỗi hành động ngẫu nhiên.<br>
+  * Đánh giá độ thích nghi (fitness) bằng cách áp dụng chuỗi hành động vào trạng thái ban đầu và tính h(n) của kết quả.<br>
+  * Chọn lọc các cá thể tốt để sinh sản.<br>
+  * Lai ghép (crossover) các cặp cá thể để tạo ra cá thể con.<br>
+  * Đột biến (mutation) một số điểm trong chuỗi hành động để đa dạng hóa quần thể.<br>
+  * Lặp lại các bước trên qua nhiều thế hệ cho đến khi tìm được lời giải (h(n) = 0).
 > Ảnh gif minh họa thuật toán Genetic Algorithm
 
 
@@ -170,26 +170,26 @@
 > Giải pháp: Chuỗi các hành động có điều kiện dẫn từ trạng thái đầu đến trạng thái đích (AND-OR) hoặc là đường đi trong không gian trạng thái niềm tin.
 
 🔸 AND-OR Search<br>
-     - Phân rã bài toàn thành nhiều vấn đề con nhỏ hơn.<br>
-     - Nút AND: Đại diện cho một vấn đề mà tất cả các vấn đề con của nó phải được giải quyết.<br>
-     - Nút OR: Đại diện cho một vấn đề mà chỉ cần chọn một trong những vấn đề con của nó để giải quyết.<br>
-     - Trong bài toán 8-Puzzle, với mỗi nút OR (1 trạng thái) thì ta có thể lựa chọn 1 trong 4 hành động để di chuyển (lên, xuống, trái, phải). Sau khi lựa chọn hành động sẽ có 2 trường hợ xảy ra:<br>     
-       + Trường hợp thứ nhất: Tỉ lệ xảy ra là 70%, sau khi thực hiện hành động chỉ di chuyển 1 ô và sinh ra một trạng thái duy nhất.<br>
-       + Trường hợp thứ hai: Thỉ lệ xảy ra là 30%, sau khi thực hiện hành động thì sẽ di chuyển xa hơn bình thường, sau khi di chuyển 1 ô thì lại tiếp tục di chuyển sang 1 ô khác.<br>
-     - Và để giải quyết được nút AND (nút điều kiện) thì các trạng thái sinh ra sau khi nút OR lựa chọn hành động đều phải có đường đi đến đích. Nếu 1 trong các trạng thái không thỏa mã thì nút AND sẽ không được giải quyết và nút OR phải lựa chọn hành động khác để tiếp tục.
+  * Phân rã bài toàn thành nhiều vấn đề con nhỏ hơn.<br>
+  * Nút AND: Đại diện cho một vấn đề mà tất cả các vấn đề con của nó phải được giải quyết.<br>
+  * Nút OR: Đại diện cho một vấn đề mà chỉ cần chọn một trong những vấn đề con của nó để giải quyết.<br>
+  * Trong bài toán 8-Puzzle, với mỗi nút OR (1 trạng thái) thì ta có thể lựa chọn 1 trong 4 hành động để di chuyển (lên, xuống, trái, phải). Sau khi lựa chọn hành động sẽ có 2 trường hợ xảy ra:<br>     
+    - Trường hợp thứ nhất: Tỉ lệ xảy ra là 70%, sau khi thực hiện hành động chỉ di chuyển 1 ô và sinh ra một trạng thái duy nhất.<br>
+    - Trường hợp thứ hai: Thỉ lệ xảy ra là 30%, sau khi thực hiện hành động thì sẽ di chuyển xa hơn bình thường, sau khi di chuyển 1 ô thì lại tiếp tục di chuyển sang 1 ô khác.<br>
+  * Và để giải quyết được nút AND (nút điều kiện) thì các trạng thái sinh ra sau khi nút OR lựa chọn hành động đều phải có đường đi đến đích. Nếu 1 trong các trạng thái không thỏa mã thì nút AND sẽ không được giải quyết và nút OR phải lựa chọn hành động khác để tiếp tục.
 > Ảnh gif minh họa thuật toán AND-OR Search
 
 
 🔸 No Observation<br>
-     - Ban đầu sẽ khỏi tọa một tập các trạng đầu và một tập các trạng thái đích một cách ngẫu nhiên.<br>
-     - Kiểm tra tất cả các trạng thái đầu xem có đường đi để đến được đích hay không bằng các thuật toán tìm kiếm ở nhóm trước (BFS, DFS, A*, ...)<br>
-     - Nếu có một trạng thái đích chung mà tất cả các trạng thái đầu đều có đường đi đến nó thì kết quả trả về sẽ là tập tất cả đường đi đó.
+  * Ban đầu sẽ khỏi tọa một tập các trạng đầu và một tập các trạng thái đích một cách ngẫu nhiên.<br>
+  * Kiểm tra tất cả các trạng thái đầu xem có đường đi để đến được đích hay không bằng các thuật toán tìm kiếm ở nhóm trước (BFS, DFS, A*, ...)<br>
+  * Nếu có một trạng thái đích chung mà tất cả các trạng thái đầu đều có đường đi đến nó thì kết quả trả về sẽ là tập tất cả đường đi đó.
 > Ảnh gif minh họa thuật toán No Observation
 
 
 🔸 Partial Observation<br>
-     - Tập hợp các trạng thái ban đầu vẫn tạo một cách ngẫu nhiên giống No Observation, nhưng tập các trạng thái đích được tạo ngẫu nhiên dựa trên một phần nhìn thấy được của trạng thái đích thực sự.<br>
-     - Sau đó thực hiện tương tự No Observation, kiểm tra các trạng thái đầu và tìm ra trạng thái đích chung.
+  * Tập hợp các trạng thái ban đầu vẫn tạo một cách ngẫu nhiên giống No Observation, nhưng tập các trạng thái đích được tạo ngẫu nhiên dựa trên một phần nhìn thấy được của trạng thái đích thực sự.<br>
+  * Sau đó thực hiện tương tự No Observation, kiểm tra các trạng thái đầu và tìm ra trạng thái đích chung.
 > Ảnh gif minh họa thuật toán Partial Observation
 
 
@@ -214,35 +214,35 @@
   * Thu hẹp miền giá trị của các biến để tạo ra trạng thái cuối cùng thỏa mãn các ràng buộc.
 
 🔸 Generate and Test<br>
-     - Tạo ra một trạng thái mới ngẫu nhiên và kiêm tra xem trạng thái đó có đường đi đến trạng thái đích hay không.<br>  
-        + Nếu đi được đến đích thì sẽ trả về tập các đường đi.<br>  
-        + Nếu không thì sẽ tạo lại một trạng thái mới khác và tiếp tục kiểm tra cho đến khi có trạng thái có đường đi đến trạng thái đích.
+  * Tạo ra một trạng thái mới ngẫu nhiên và kiêm tra xem trạng thái đó có đường đi đến trạng thái đích hay không.<br>  
+     - Nếu đi được đến đích thì sẽ trả về tập các đường đi.<br>  
+     - Nếu không thì sẽ tạo lại một trạng thái mới khác và tiếp tục kiểm tra cho đến khi có trạng thái có đường đi đến trạng thái đích.
 > Ảnh gif minh họa thuật toán Generate and Test
 
 
 🔸 Backtracking<br>
-     - Ràng buộc được sử dụng trong bài toán:<br>
-        + Giá trị của từng ô phải khác nhau.<br>
-        + Giá trị của ô phía trước sẽ lớn hơn giá trị của ô phía sau.<br>
-     - Miền giá trị ban đầu của 9 ô là {0, 1, ..., 8}.<br>
-     - Ban đầu sẽ xét ô 0, với mỗi giá trị trong miền, kiểm tra tính hợp lệ:<br>
-        + Nếu chưa tồn tại trong dãy đã gán → không trùng lặp.<br>
-        + Nếu nhỏ hơn giá trị ô trước đó (nếu có) → thỏa ràng buộc thứ hai.<br>
-     - Nếu hợp lệ, gán giá trị đó cho ô hiện tại và đệ quy tiếp sang ô tiếp theo.<br>
-     - Nếu không còn giá trị nào hợp lệ cho một ô, thực hiện quay lui (backtrack) về ô trước để thử giá trị khác.<br>
-     - Kết thúc khi gán đủ 9 ô và thỏa mãn các ràng buộc.
+  * Ràng buộc được sử dụng trong bài toán:<br>
+     - Giá trị của từng ô phải khác nhau.<br>
+     - Giá trị của ô phía trước sẽ lớn hơn giá trị của ô phía sau.<br>
+  * Miền giá trị ban đầu của 9 ô là {0, 1, ..., 8}.<br>
+  * Ban đầu sẽ xét ô 0, với mỗi giá trị trong miền, kiểm tra tính hợp lệ:<br>
+     - Nếu chưa tồn tại trong dãy đã gán → không trùng lặp.<br>
+     - Nếu nhỏ hơn giá trị ô trước đó (nếu có) → thỏa ràng buộc thứ hai.<br>
+  * Nếu hợp lệ, gán giá trị đó cho ô hiện tại và đệ quy tiếp sang ô tiếp theo.<br>
+  * Nếu không còn giá trị nào hợp lệ cho một ô, thực hiện quay lui (backtrack) về ô trước để thử giá trị khác.<br>
+  * Kết thúc khi gán đủ 9 ô và thỏa mãn các ràng buộc.
 > Ảnh gif minh họa thuật toán Backtracking
 
 
 🔸 AC-3<br>
-     - Ràng buộc được sử dụng trong bài toán:<br>
-        + Giá trị của từng ô phải khác nhau.<br>
-        + Giá trị của ô phía trước sẽ nhỏ hơn giá trị của ô phía sau.<br>
-     - Miền giá trị ban đầu của 9 ô là {0, 1, ..., 8}.<br>
-     - Duyệt qua từng cung, xét từng giá trị nằm trong miền giá trị của biến thứ nhất trong cung:<br>   
-        + Nếu trong miền giá trị của biến thứ hai có ít nhất một giá trị thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ không đổi.<br> 
-        + Nếu không có giá trị nào trong miền giá trị của biến thứ hai thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ xóa giá trị đang xét.<br> 
-        + Nếu có sự thu hẹp miền giá trị xảy ra thì các cung liền kề với biến thứ nhất sẽ được thêm lại vào hàng đợi các cung.
+  * Ràng buộc được sử dụng trong bài toán:<br>
+     - Giá trị của từng ô phải khác nhau.<br>
+     - Giá trị của ô phía trước sẽ nhỏ hơn giá trị của ô phía sau.<br>
+  * Miền giá trị ban đầu của 9 ô là {0, 1, ..., 8}.<br>
+  * Duyệt qua từng cung, xét từng giá trị nằm trong miền giá trị của biến thứ nhất trong cung:<br>   
+     - Nếu trong miền giá trị của biến thứ hai có ít nhất một giá trị thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ không đổi.<br> 
+     - Nếu không có giá trị nào trong miền giá trị của biến thứ hai thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ xóa giá trị đang xét.<br> 
+     - Nếu có sự thu hẹp miền giá trị xảy ra thì các cung liền kề với biến thứ nhất sẽ được thêm lại vào hàng đợi các cung.
 > Ảnh gif minh họa thuật toán AC-3
 
 
