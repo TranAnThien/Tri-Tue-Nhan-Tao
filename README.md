@@ -239,7 +239,7 @@
         + Giá trị của từng ô phải khác nhau.<br>
         + Giá trị của ô phía trước sẽ nhỏ hơn giá trị của ô phía sau.<br>
      - Miền giá trị ban đầu của 9 ô là {0, 1, ..., 8}.<br>
-     - Duyệt qua từng cung, xét từng giá trị nằm trong miền giá trị của biến thứ nhất trong cung:<br>
+     - Duyệt qua từng cung, xét từng giá trị nằm trong miền giá trị của biến thứ nhất trong cung:<br>   
         + Nếu trong miền giá trị của biến thứ hai có ít nhất một giá trị thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ không đổi.<br> 
         + Nếu không có giá trị nào trong miền giá trị của biến thứ hai thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ xóa giá trị đang xét.<br> 
         + Nếu có sự thu hẹp miền giá trị xảy ra thì các cung liền kề với biến thứ nhất sẽ được thêm lại vào hàng đợi các cung.
@@ -265,7 +265,7 @@
   * Chiến lược huấn luyện:<br>
      - Với mỗi episode:<br>
        + Chạy tối đa max_steps bước hoặc đến khi đạt trạng thái đích.<br>
-       + Tại mỗi bước:<br>   
+       + Tại mỗi bước:
           Chọn hành động theo epsilon-greedy.  
           Cập nhật Q-value cho trạng thái hiện tại. 
           Di chuyển đến trạng thái tiếp theo.
