@@ -46,7 +46,7 @@
 
 > Một số nhận xét khi áp dụng vào bài toán 8 puzzle
   * BFS: Tìm thấy được đường đi ngắn nhất, nhưng khá chậm, rất tốn bộ nhớ.
-  * DFS: Đường đi tì thấy được có thể không phải là đường đi ngắn nhất. Khi chạy thuật toán, số nút được xét rất lớn và kết quả trả về thường là một đường đi dài, tốn ít bộ nhớ.
+  * DFS: Đường đi tìm thấy được có thể không phải là đường đi ngắn nhất. Khi chạy thuật toán, số nút được xét rất lớn và kết quả trả về thường là một đường đi dài, tốn ít bộ nhớ.
   * UCS: Tối ưu về chi phí đường đi, nếu tất cả đường đi có chi phí là 1 (đang áp dụng vào bài toán) thì nó cũng sẽ trả về đường đi ngắn nhất giống thuật toán BFS.
   * IDS: Kết hợp ưu điểm của BFS và DFS, tốn thời gian vì lặp lại nhiều lần.
 
@@ -146,8 +146,8 @@
 > Một số nhận xét khi áp dụng vào bài toán 8 puzzle
   * Simple Hill Climbing: Nhanh nhưng dễ bị kẹt vì không xét hết tất cả các trạng thái tốt hơn.
   * Hill Climbing: Tốt hơn Simple Hill climbing nhưng vẫn có khả năng bị mắc kẹt.
-  * tochastic Hill Climbing: Có thể thoát khỏi mắc kẹt nhwof sự lựa chọn ngẫu nhiên.
-  * Simulated Anealing: Có khả năng thoát khỏi mắc kẹt và tìm thấy lời giải vì nó có xác suất nhận các trường hợp xấu hơn.
+  * Stochastic Hill Climbing: Có thể thoát khỏi mắc kẹt nhờ sự lựa chọn ngẫu nhiên.
+  * Simulated Annealing: Có khả năng thoát khỏi mắc kẹt và tìm thấy lời giải vì nó có xác suất nhận các trường hợp xấu hơn.
   * Beam Search: Hoạt động tương tự như BFS nhưng chỉ giữ lại 'k' trạng thái thay vì mở rộng toàn bộ.
   * Genetic Algorithm: Có khả năng tìm thấy lời giải mà không cần duyệt toàn bộ không gian.
 
@@ -274,4 +274,9 @@
      - Sau khi huấn luyện, sử dụng Q-table để tái tạo đường đi từ trạng thái đầu đến trạng thái đích:<br>
        + Ở mỗi bước, chọn hành động có Q-value cao nhất.<br>
        + Tránh lặp lại trạng thái để không rơi vào vòng lặp vô tận.<br>
- > Ảnh gif minh họa thuật toán Q-Learning
+> Ảnh gif minh họa thuật toán Q-Learning
+
+---
+
+## 3. Kết luận
+Qua việc áp dụng và trực quan hóa các thuật toán vào bài toán 8-Puzzle, em đã hiểu sâu hơn về bản chất, hiệu quả, cũng như ưu nhược điểm của từng thuật toán. Việc xây dựng giao diện giúp kiểm chứng lý thuyết một cách trực quan và sinh động. Trong thực tế, lựa chọn thuật toán phù hợp còn tùy thuộc vào bài toán cụ thể và yêu cầu về tốc độ hay tối ưu.
