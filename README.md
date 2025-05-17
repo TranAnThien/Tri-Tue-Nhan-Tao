@@ -119,29 +119,37 @@
 
 
 🔸 Simulated Annealing<br>
-     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.<br>
-     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
+     - Thuật toán này cho phép di chuyển đến các trạng thái xấu hơn với xác suất phụ thuộc vào nhiệt độ.<br>
+     - Từ trạng thái hiện tại, chọn ngẫu nhiên mộ trạng thái. Nếu trạng thái đó tốt hơn thì di chuyển, nếu không thì tính xác suất nhận nó bằng công thức: 'P = exp(-Δh / T)'. Trong đó Δh là độ chênh lệch giá trị manhattan, T là nhiệt độ hiện tại. Sau mỗi bước thì nhiệt độ sẽ giảm dần.
 > Ảnh gif minh họa thuật toán Simulated Annealing
 
 
-🔸 Iterative Deepening Search (IDS)
-     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
-     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
-> Ảnh gif minh họa thuật toán DFS
+🔸 Beam Search<br>
+     - Khởi đầu bằng một trạng thái ban đầu, sau đó xét qua các trạng thái lân cận và lấy ra 'k' trạng thái có giá trị h(n) nhỏ nhất.<br>
+     - Tại mỗi vòng lặp, thuật toán tạo ra tất cả trạng thái lân cận từ 'k' trạng thái hiện tại. Sau đó chọn ra 'k' trạng thái có giá trị h(n) nhỏ nhất để thực hiện vòng lặp tiếp theo. Tiếp tục lặp lại cho đến khi tìm đến đích.
+> Ảnh gif minh họa thuật toán Beam Search
 
 
-🔸 Iterative Deepening Search (IDS)
-     - IDS kết hợp DFS và BFS bằng cách thực hiện DFS nhiều lần với giới hạn độ sâu tăng dần.
-     - IDS bắt đầu duyệt giống như DFS nhưng chỉ đến độ sâu nhất định. Nếu chưa tìm thấy trạng thái đích, tăng giới hạn lên và duyệt lại từ đầu. 
-> Ảnh gif minh họa thuật toán DFS
+🔸 Genetic Algorithm<br>
+     - Khởi tạo quần thể gồm nhiều chuỗi hành động ngẫu nhiên.<br>
+     - Đánh giá độ thích nghi (fitness) bằng cách áp dụng chuỗi hành động vào trạng thái ban đầu và tính h(n) của kết quả.<br>
+     - Chọn lọc các cá thể tốt để sinh sản.<br>
+     - Lai ghép (crossover) các cặp cá thể để tạo ra cá thể con.<br>
+     - Đột biến (mutation) một số điểm trong chuỗi hành động để đa dạng hóa quần thể.<br>
+     - Lặp lại các bước trên qua nhiều thế hệ cho đến khi tìm được lời giải (h(n) = 0).
+> Ảnh gif minh họa thuật toán Genetic Algorithm
 
 
 > Hình ảnh so sánh hiệu suất các thuật toán
 ![Screenshot 2025-05-12 170410](https://github.com/user-attachments/assets/80c6bcee-ec50-4ca5-aebd-4cb5dcc94a5e)
 
 > Một số nhận xét khi áp dụng vào bài toán 8 puzzle
-  * Hill Climbing và các biến thể (Simple Hill Climbing, Stochastic): Ít tốn bộ nhớ vì chỉ xét trạng thái hiện tại nhưng dễ bị mắc kẹt trước khi đến được trạng thái đích.
-  * Simulated Anealing: Có khả năng không bị mắc kẹt vì nó cho phép đi đến các trạng thái xấu hơn.
+  * Simple Hill Climbing: Nhanh nhưng dễ bị kẹt vì không xét hết tất cả các trạng thái tốt hơn.
+  * Hill Climbing: Tốt hơn Simple Hill climbing nhưng vẫn có khả năng bị mắc kẹt.
+  * tochastic Hill Climbing: Có thể thoát khỏi mắc kẹt nhwof sự lựa chọn ngẫu nhiên.
+  * Simulated Anealing: Có khả năng thoát khỏi mắc kẹt và tìm thấy lời giải vì nó có xác suất nhận các trường hợp xấu hơn.
+  * Beam Search: Hoạt động tương tự như BFS nhưng chỉ giữ lại 'k' trạng thái thay vì mở rộng toàn bộ.
+  * Genetic Algorithm: Có khả năng tìm thấy lời giải mà không cần duyệt toàn bộ không gian.
 
 ---
 
@@ -161,36 +169,109 @@
   * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
 > Giải pháp: Chuỗi các hành động có điều kiện dẫn từ trạng thái đầu đến trạng thái đích (AND-OR) hoặc là đường đi trong không gian trạng thái niềm tin.
 
-| Thuật toán |   GIF minh họa   |
-|------------|------------------|
-| 🔸 **AND-OR**<br> - Phân rã bài toán thành những vấn đề con.<br> - Nút AND: Đại diện cho một vấn đề mà tất cả các vấn đề con của nó phải được giải quyết.<br> - Đại diện cho một vấn đề mà chỉ cần chọn một trong những vấn đề con của nó để giải quyết. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/And-Or.gif) |
-| 🔸 **No Observation**<br> - Tìm kiếm trạng thái đích chung từ những trạng thái đầu ngẫu nhiên.<br> - Giải thử tất cả các trạng thái đầu bằng một thuật toán tìm kiếm (BFS, DFS, A*, ...).<br> - Nếu tìm thấy đích chung mà tất cả trạng thái đầu đều đi tới thì kết quả là tập hợp tất cả đường đi đó. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/No_Observation.gif) |
-| 🔸 **Partial Observation**<br> - Tương tự như thuật toasnNo Observation.<br> - Vì nhìn thấy một phần nên những trạng thái đích được tạo sẽ giống với trạng thái đích mong muốn hơn. | ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Partial_Observation.gif) |
+🔸 AND-OR Search<br>
+     - Phân rã bài toàn thành nhiều vấn đề con nhỏ hơn.<br>
+     - Nút AND: Đại diện cho một vấn đề mà tất cả các vấn đề con của nó phải được giải quyết.<br>
+     - Nút OR: Đại diện cho một vấn đề mà chỉ cần chọn một trong những vấn đề con của nó để giải quyết.<br>
+     - Trong bài toán 8-Puzzle, với mỗi nút OR (1 trạng thái) thì ta có thể lựa chọn 1 trong 4 hành động để di chuyển (lên, xuống, trái, phải). Sau khi lựa chọn hành động sẽ có 2 trường hợ xảy ra:<br>     
+       + Trường hợp thứ nhất: Tỉ lệ xảy ra là 70%, sau khi thực hiện hành động chỉ di chuyển 1 ô và sinh ra một trạng thái duy nhất.<br>
+       + Trường hợp thứ hai: Thỉ lệ xảy ra là 30%, sau khi thực hiện hành động thì sẽ di chuyển xa hơn bình thường, sau khi di chuyển 1 ô thì lại tiếp tục di chuyển sang 1 ô khác.<br>
+     - Và để giải quyết được nút AND (nút điều kiện) thì các trạng thái sinh ra sau khi nút OR lựa chọn hành động đều phải có đường đi đến đích. Nếu 1 trong các trạng thái không thỏa mã thì nút AND sẽ không được giải quyết và nút OR phải lựa chọn hành động khác để tiếp tục.
+> Ảnh gif minh họa thuật toán AND-OR Search
+
+
+🔸 No Observation<br>
+     - Ban đầu sẽ khỏi tọa một tập các trạng đầu và một tập các trạng thái đích một cách ngẫu nhiên.<br>
+     - Kiểm tra tất cả các trạng thái đầu xem có đường đi để đến được đích hay không bằng các thuật toán tìm kiếm ở nhóm trước (BFS, DFS, A*, ...)<br>
+     - Nếu có một trạng thái đích chung mà tất cả các trạng thái đầu đều có đường đi đến nó thì kết quả trả về sẽ là tập tất cả đường đi đó.
+> Ảnh gif minh họa thuật toán No Observation
+
+
+🔸 Partial Observation<br>
+     - Tập hợp các trạng thái ban đầu vẫn tạo một cách ngẫu nhiên giống No Observation, nhưng tập các trạng thái đích được tạo ngẫu nhiên dựa trên một phần nhìn thấy được của trạng thái đích thực sự.<br>
+     - Sau đó thực hiện tương tự No Observation, kiểm tra các trạng thái đầu và tìm ra trạng thái đích chung.
+> Ảnh gif minh họa thuật toán Partial Observation
+
 
 ---
 
 ### 🧩 2.5. Constraint Satisfaction Problems (CSPs) (Tìm kiếm trong môi trường có ràng buộc)
 
 > Các thành phần chính của bài toán
-  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
-  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
-  * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
-  * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
-  * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
-  * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
-  * Biến đại diện cho các thành phần của bài toán (vị trí của ô).
-  * Miền giá trị: Tập giá trị mà biến có thể nhận được.
-  * Ràng buộc: Những quy tắc áp dụng vào bài toán để thu hẹp miền giá trị của các biến.
+  * Đối với thuật toán Generate and Test
+     * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải.
+     * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu.
+     * Không gian trạng thái: Tập hợp tất cả các trạng thái có thể có của bài toán 8 puzzle.
+     * Hành động: Mô tả các hành động để chuyển từ trạng thái này sang trạng thái khác (di chuyển ô trống lên, xuống, trái, phải
+     * Chi phí đường đi: Mỗi hành động (di chuyển 1 ô) sẽ có chi phí là 1.
+     * Giá trị manhattan: Ước lượng chi phí từ trạng thái hiện tại đến trạng thái đích.
+  * Đối với thuật toán Backtracking và AC-3
+     * Biến đại diện cho các thành phần của bài toán (vị trí của ô).
+     * Miền giá trị: Tập giá trị mà biến có thể nhận được, miền giá trị có từng ô là {0, 1, 2, ..., 8}.
+     * Ràng buộc: Những quy tắc áp dụng vào bài toán để thu hẹp miền giá trị của các biến.
 > Giải pháp:
   * Chuỗi các hành động từ trạng thái đầu đến trạng thái đích.
   * Thu hẹp miền giá trị của các biến để tạo ra trạng thái cuối cùng thỏa mãn các ràng buộc.
 
-| Thuật toán |   GIF minh họa   |
-|------------|------------------|
-| 🔸 **Generate and Test**<br> - Tạo ra một trạng thái mới ngẫu nhiên và kiêm tra xem trạng thái đó có đường đi đến trạng thái đích hay không.<br>  + Nếu đi được đến đích thì sẽ trả về tập các đường đi.<br>  + Nếu không thì sẽ tạo lại một trạng thái mới khác và tiếp tục kiểm tra cho đến khi có trạng thái có đường đi đến trạng thái đích. | ![Simple Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Generate_And_Test.gif) |
-| 🔸 **Backtracking**<br> - Tương tự như thuật toán DFS, thuật toán này sẽ đi sâu xuống hết mức có thể của một nhánh:<br>  + Nếu tìm thấy đường đi thì trả về tập các hành động.<br>  + Nếu không thì sẽ quay lui lại trạng thái trước đó, đồng thời hoàn tác việc đánh dấu đã thăm. | ![Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/Backtracking.gif) |
----
-  🔸 **AC-3**<br> - Tạo ra những ràng buộc áp đặt vào bài toắn hoặc sử dụng những ràng buộc có sẵn.<br> - Khởi tạo miền giá trị cho từng biến và một tập các cung dùng để kiểm tra các ràng buộc và thu hẹp miền giá trị của các biến.<br> - Duyệt qua từng cung, xét từng giá trị nằm trong miền giá trị của biến thứ nhất trong cung:<br>  + Nếu trong miền giá trị của biến thứ hai có ít nhất một giá trị thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ không đổi.<br>  + Nếu không có giá trị nào trong miền giá trị của biến thứ hai thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ xóa giá trị đang xét.<br>  + Nếu có sự thu hẹp miền giá trị xảy ra thì các cung liền kề với biến thứ nhất sẽ được thêm lại vào hàng đợi các cung.
-  ![Stochastic Hill Climbing](https://github.com/TranAnThien/Tri-Tue-Nhan-Tao/blob/main/Search%20Algorithm%20Gif/AC_3.gif)
+🔸 Generate and Test<br>
+     - Tạo ra một trạng thái mới ngẫu nhiên và kiêm tra xem trạng thái đó có đường đi đến trạng thái đích hay không.<br>  
+        + Nếu đi được đến đích thì sẽ trả về tập các đường đi.<br>  
+        + Nếu không thì sẽ tạo lại một trạng thái mới khác và tiếp tục kiểm tra cho đến khi có trạng thái có đường đi đến trạng thái đích.
+> Ảnh gif minh họa thuật toán Generate and Test
+
+
+🔸 Backtracking<br>
+     - Ràng buộc được sử dụng trong bài toán:<br>
+        + Giá trị của từng ô phải khác nhau.<br>
+        + Giá trị của ô phía trước sẽ lớn hơn giá trị của ô phía sau.<br>
+     - Miền giá trị ban đầu của 9 ô là {0, 1, ..., 8}.<br>
+     - Ban đầu sẽ xét ô 0, với mỗi giá trị trong miền, kiểm tra tính hợp lệ:<br>
+        + Nếu chưa tồn tại trong dãy đã gán → không trùng lặp.<br>
+        + Nếu nhỏ hơn giá trị ô trước đó (nếu có) → thỏa ràng buộc thứ hai.<br>
+     - Nếu hợp lệ, gán giá trị đó cho ô hiện tại và đệ quy tiếp sang ô tiếp theo.<br>
+     - Nếu không còn giá trị nào hợp lệ cho một ô, thực hiện quay lui (backtrack) về ô trước để thử giá trị khác.<br>
+     - Kết thúc khi gán đủ 9 ô và thỏa mãn các ràng buộc.
+> Ảnh gif minh họa thuật toán Backtracking
+
+
+🔸 AC-3<br>
+     - Ràng buộc được sử dụng trong bài toán:<br>
+        + Giá trị của từng ô phải khác nhau.<br>
+        + Giá trị của ô phía trước sẽ nhỏ hơn giá trị của ô phía sau.<br>
+     - Miền giá trị ban đầu của 9 ô là {0, 1, ..., 8}.<br>
+     - Duyệt qua từng cung, xét từng giá trị nằm trong miền giá trị của biến thứ nhất trong cung:<br>
+        + Nếu trong miền giá trị của biến thứ hai có ít nhất một giá trị thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ không đổi.<br> 
+        + Nếu không có giá trị nào trong miền giá trị của biến thứ hai thỏa mãn các ràng buộc thì miền giá trị của biến thứ nhất sẽ xóa giá trị đang xét.<br> 
+        + Nếu có sự thu hẹp miền giá trị xảy ra thì các cung liền kề với biến thứ nhất sẽ được thêm lại vào hàng đợi các cung.
+> Ảnh gif minh họa thuật toán AC-3
+
 
 ---
+
+### 🧠 2.6. Reinforcement Learning (Học tăng cường)
+
+> Các thành phần chính của bài toán:
+  * Trạng thái đầu: Trạng thái xuất phát của bài toán để tìm kiếm lời giải (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
+  * Trạng thái đích: Trạng thái mong muốn đạt được khi áp dụng thuật toán tìm kiếm vào trạng thái ban đầu (gồm 9 ô, trong đó có 8 ô chứa các giá trị khác nhau từ 1->8 và 1 ô trống).
+  * Phần thưởng (Reward):
+     * Thường nhận giá trị -1 cho mỗi bước di chuyển để tối ưu đường đi ngắn nhất.
+     * Nhận giá trị +100 khi đạt trạng thái đích.
+  * Chính sách (Policy): Chiến lược chọn hành động dựa trên trạng thái hiện tại, thường sử dụng chính sách ε-greedy.
+  * Hàm giá trị Q(s, a): Ước lượng giá trị kỳ vọng khi thực hiện hành động a tại trạng thái s.
+> Giải pháp:
+  * Một dãy các trạng thái từ đầu đến đích đại diện cho đường đi tối ưu theo chính sách đã học từ Q-table.
+
+🔸 Q-Learning<br>
+  * Chiến lược huấn luyện:<br>
+     - Với mỗi episode:<br>
+       + Chạy tối đa max_steps bước hoặc đến khi đạt trạng thái đích.<br>
+       + Tại mỗi bước:<br>   
+          Chọn hành động theo epsilon-greedy.<br>   
+          Cập nhật Q-value cho trạng thái hiện tại.<br>   
+          Di chuyển đến trạng thái tiếp theo.<br>
+     - Sau mỗi episode, epsilon được giảm dần (epsilon_decay) để tăng khả năng khai thác tri thức đã học.
+  * Trích xuất đường đi:<br>
+     - Sau khi huấn luyện, sử dụng Q-table để tái tạo đường đi từ trạng thái đầu đến trạng thái đích:<br>
+       + Ở mỗi bước, chọn hành động có Q-value cao nhất.<br>
+       + Tránh lặp lại trạng thái để không rơi vào vòng lặp vô tận.<br>
+ > Ảnh gif minh họa thuật toán Q-Learning
